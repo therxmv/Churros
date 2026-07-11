@@ -49,7 +49,6 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.kermit)
             implementation(libs.navigation3.ui)
-            implementation(libs.navigation3.runtime)
             implementation(libs.room.runtime)
             implementation(libs.ktor.client.core)
             implementation(libs.coil.compose)
