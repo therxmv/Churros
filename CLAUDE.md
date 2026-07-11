@@ -14,6 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `docs/churros_idea.md` — Product vision, features, target audience, brand personality
 - `docs/churros_design_system.md` — Colors, typography, spacing, design principles
 - `docs/churros_tech_stack.md` — Full architecture, technology decisions, development workflow
+- `docs/roadmap.md` — Project phases and scope (Phase 1: Foundation, Phase 2: Backend & Family, Phase 3: Advanced Features)
 
 Read these docs when working on product decisions, UI implementation, or architecture.
 
@@ -84,9 +85,9 @@ When the user asks you to create a ticket:
 
 1. Infer `type`, `epic`, `priority` from the description and context in `docs/churros_idea.md` / `docs/churros_tech_stack.md`.
 2. Draft an issue body using the template below.
-3. Create the issue:
+3. Create the issue, assigning it to the appropriate milestone:
    ```bash
-   gh issue create --title "Title" --body "..." --label "type:feature,priority:medium,epic:chores"
+   gh issue create --title "Title" --body "..." --label "type:feature,priority:medium,epic:chores" --milestone "Phase 1 — Foundation"
    ```
 4. Confirm the issue number and URL.
 
