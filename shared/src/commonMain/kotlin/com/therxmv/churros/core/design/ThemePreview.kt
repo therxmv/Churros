@@ -19,8 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
 
 // ── Shared preview content ────────────────────────────────────────────────────
 
@@ -41,12 +41,13 @@ private fun ColorSwatch(color: Color, label: String) {
     }
 }
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
 @Composable
 private fun ThemePreviewContent() {
     val churros = MaterialTheme.churrosColors
     Surface(color = MaterialTheme.colorScheme.background) {
         Column(modifier = Modifier.padding(16.dp)) {
-            // Typography scale
             Text("Display", style = MaterialTheme.typography.displaySmall)
             Text("Headline", style = MaterialTheme.typography.headlineLarge)
             Text("Title Large", style = MaterialTheme.typography.titleLarge)
@@ -58,7 +59,6 @@ private fun ThemePreviewContent() {
 
             Spacer(Modifier.height(24.dp))
 
-            // Brand colors
             Text("Brand", style = MaterialTheme.typography.labelLarge)
             Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -70,7 +70,6 @@ private fun ThemePreviewContent() {
 
             Spacer(Modifier.height(16.dp))
 
-            // Background / surface tokens
             Text("Surfaces", style = MaterialTheme.typography.labelLarge)
             Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -82,7 +81,6 @@ private fun ThemePreviewContent() {
 
             Spacer(Modifier.height(16.dp))
 
-            // Semantic
             Text("Semantic", style = MaterialTheme.typography.labelLarge)
             Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -95,7 +93,6 @@ private fun ThemePreviewContent() {
 
             Spacer(Modifier.height(16.dp))
 
-            // Sticky notes
             Text("Sticky Notes", style = MaterialTheme.typography.labelLarge)
             Spacer(Modifier.height(8.dp))
             Row(
@@ -109,23 +106,5 @@ private fun ThemePreviewContent() {
                 ColorSwatch(churros.stickyImportantBackground, "Important")
             }
         }
-    }
-}
-
-// ── Previews ──────────────────────────────────────────────────────────────────
-
-@Preview
-@Composable
-fun ChurrosThemeLightPreview() {
-    ChurrosTheme(darkTheme = false) {
-        ThemePreviewContent()
-    }
-}
-
-@Preview
-@Composable
-fun ChurrosThemeDarkPreview() {
-    ChurrosTheme(darkTheme = true) {
-        ThemePreviewContent()
     }
 }

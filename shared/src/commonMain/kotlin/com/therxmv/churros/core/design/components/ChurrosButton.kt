@@ -14,15 +14,16 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
+import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosShapes
 import com.therxmv.churros.core.design.ChurrosSpacing
-import com.therxmv.churros.core.design.ChurrosTheme
 import com.therxmv.churros.core.design.Espresso
 import com.therxmv.churros.core.design.Honey500
 import com.therxmv.churros.core.design.SemanticError
 import com.therxmv.churros.core.design.churrosColors
-import androidx.compose.ui.tooling.preview.Preview
 
 private val ButtonMinHeight = 48.dp
 private val ButtonContentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
@@ -64,8 +65,8 @@ fun ChurrosSecondaryButton(
         enabled = enabled,
         shape = ChurrosShapes.button,
         colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = Color.White,
-            contentColor = Espresso,
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface,
             disabledContentColor = MaterialTheme.churrosColors.textDisabled,
         ),
         contentPadding = ButtonContentPadding,
@@ -87,7 +88,7 @@ fun ChurrosTextButton(
         enabled = enabled,
         shape = ChurrosShapes.button,
         colors = ButtonDefaults.textButtonColors(
-            contentColor = Espresso,
+            contentColor = MaterialTheme.colorScheme.onSurface,
             disabledContentColor = MaterialTheme.churrosColors.textDisabled,
         ),
         contentPadding = ButtonContentPadding,
@@ -120,19 +121,18 @@ fun ChurrosDangerButton(
     }
 }
 
-@Preview
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
 @Composable
-private fun ButtonsPreview() {
-    ChurrosTheme {
-        Column(
-            modifier = Modifier.padding(ChurrosSpacing.M),
-            verticalArrangement = Arrangement.spacedBy(ChurrosSpacing.S),
-        ) {
-            ChurrosPrimaryButton(text = "Primary", onClick = {})
-            ChurrosSecondaryButton(text = "Secondary", onClick = {})
-            ChurrosTextButton(text = "Text", onClick = {})
-            ChurrosDangerButton(text = "Danger", onClick = {})
-            ChurrosPrimaryButton(text = "Disabled", onClick = {}, enabled = false)
-        }
+private fun ButtonsPreviewContent() {
+    Column(
+        modifier = Modifier.padding(ChurrosSpacing.M),
+        verticalArrangement = Arrangement.spacedBy(ChurrosSpacing.S),
+    ) {
+        ChurrosPrimaryButton(text = "Primary", onClick = {})
+        ChurrosSecondaryButton(text = "Secondary", onClick = {})
+        ChurrosTextButton(text = "Text", onClick = {})
+        ChurrosDangerButton(text = "Danger", onClick = {})
+        ChurrosPrimaryButton(text = "Disabled", onClick = {}, enabled = false)
     }
 }
