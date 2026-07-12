@@ -33,6 +33,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import churros.shared.generated.resources.Res
+import churros.shared.generated.resources.action_continue_google
+import churros.shared.generated.resources.action_create_account
+import churros.shared.generated.resources.action_password_hide
+import churros.shared.generated.resources.action_password_show
+import churros.shared.generated.resources.action_sign_in
+import churros.shared.generated.resources.app_tagline
+import churros.shared.generated.resources.error_invalid_email
+import churros.shared.generated.resources.error_password_too_short
+import churros.shared.generated.resources.field_email
+import churros.shared.generated.resources.field_password
+import churros.shared.generated.resources.login_signing_in
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
@@ -41,6 +53,7 @@ import com.therxmv.churros.core.design.components.ChurrosPrimaryButton
 import com.therxmv.churros.core.design.components.ChurrosSecondaryButton
 import com.therxmv.churros.core.design.components.ChurrosTextButton
 import com.therxmv.churros.core.design.components.ChurrosTextField
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -95,7 +108,7 @@ private fun LoginScreenContent(
             Spacer(modifier = Modifier.height(ChurrosSpacing.S))
 
             Text(
-                text = "Like chores, but sweeter.",
+                text = stringResource(Res.string.app_tagline),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
@@ -110,8 +123,8 @@ private fun LoginScreenContent(
                 ChurrosTextField(
                     value = state.email,
                     onValueChange = { onEvent(LoginEvent.EmailChanged(it)) },
-                    label = "Email",
-                    errorMessage = state.emailError,
+                    label = stringResource(Res.string.field_email),
+                    errorMessage = state.emailError?.let { stringResource(it) },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email,
                         imeAction = ImeAction.Next,
@@ -122,8 +135,8 @@ private fun LoginScreenContent(
                 ChurrosTextField(
                     value = state.password,
                     onValueChange = { onEvent(LoginEvent.PasswordChanged(it)) },
-                    label = "Password",
-                    errorMessage = state.passwordError,
+                    label = stringResource(Res.string.field_password),
+                    errorMessage = state.passwordError?.let { stringResource(it) },
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Password,
@@ -132,7 +145,7 @@ private fun LoginScreenContent(
                     trailingIcon = {
                         TextButton(onClick = { passwordVisible = !passwordVisible }) {
                             Text(
-                                text = if (passwordVisible) "Hide" else "Show",
+                                text = stringResource(if (passwordVisible) Res.string.action_password_hide else Res.string.action_password_show),
                                 style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
@@ -145,7 +158,7 @@ private fun LoginScreenContent(
             Spacer(modifier = Modifier.height(ChurrosSpacing.L))
 
             ChurrosPrimaryButton(
-                text = if (state.isLoading) "Signing in…" else "Sign In",
+                text = stringResource(if (state.isLoading) Res.string.login_signing_in else Res.string.action_sign_in),
                 onClick = { onEvent(LoginEvent.SignInClicked) },
                 enabled = !state.isLoading,
                 modifier = Modifier.fillMaxWidth(),
@@ -154,7 +167,7 @@ private fun LoginScreenContent(
             Spacer(modifier = Modifier.height(ChurrosSpacing.S))
 
             ChurrosSecondaryButton(
-                text = "Continue with Google",
+                text = stringResource(Res.string.action_continue_google),
                 onClick = { onEvent(LoginEvent.ContinueWithGoogleClicked) },
                 enabled = !state.isLoading,
                 modifier = Modifier.fillMaxWidth(),
@@ -163,7 +176,7 @@ private fun LoginScreenContent(
             Spacer(modifier = Modifier.height(ChurrosSpacing.M))
 
             ChurrosTextButton(
-                text = "Create account",
+                text = stringResource(Res.string.action_create_account),
                 onClick = { onEvent(LoginEvent.CreateAccountClicked) },
                 enabled = !state.isLoading,
             )
@@ -191,8 +204,8 @@ private fun LoginScreenErrorPreview() {
         state = LoginState(
             email = "bad",
             password = "123",
-            emailError = "Enter a valid email address",
-            passwordError = "Password must be at least 8 characters",
+            emailError = Res.string.error_invalid_email,
+            passwordError = Res.string.error_password_too_short,
         ),
         onEvent = {},
     )

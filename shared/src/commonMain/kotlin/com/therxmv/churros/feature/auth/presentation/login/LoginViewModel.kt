@@ -2,6 +2,9 @@ package com.therxmv.churros.feature.auth.presentation.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import churros.shared.generated.resources.Res
+import churros.shared.generated.resources.error_invalid_email
+import churros.shared.generated.resources.error_password_too_short
 import com.therxmv.churros.feature.auth.domain.usecase.ValidateEmailUseCase
 import com.therxmv.churros.feature.auth.domain.usecase.ValidatePasswordUseCase
 import kotlinx.coroutines.channels.Channel
@@ -41,8 +44,8 @@ class LoginViewModel(
         if (!emailValid || !passwordValid) {
             _state.update {
                 it.copy(
-                    emailError = if (!emailValid) "Enter a valid email address" else null,
-                    passwordError = if (!passwordValid) "Password must be at least 8 characters" else null,
+                    emailError = if (!emailValid) Res.string.error_invalid_email else null,
+                    passwordError = if (!passwordValid) Res.string.error_password_too_short else null,
                 )
             }
             return

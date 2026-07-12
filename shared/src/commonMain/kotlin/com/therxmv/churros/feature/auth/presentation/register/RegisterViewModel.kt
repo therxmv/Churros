@@ -2,6 +2,10 @@ package com.therxmv.churros.feature.auth.presentation.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import churros.shared.generated.resources.Res
+import churros.shared.generated.resources.error_invalid_email
+import churros.shared.generated.resources.error_name_required
+import churros.shared.generated.resources.error_password_too_short
 import com.therxmv.churros.feature.auth.domain.usecase.ValidateEmailUseCase
 import com.therxmv.churros.feature.auth.domain.usecase.ValidateNameUseCase
 import com.therxmv.churros.feature.auth.domain.usecase.ValidatePasswordUseCase
@@ -45,9 +49,9 @@ class RegisterViewModel(
         if (!nameValid || !emailValid || !passwordValid) {
             _state.update {
                 it.copy(
-                    nameError = if (!nameValid) "Name is required" else null,
-                    emailError = if (!emailValid) "Enter a valid email address" else null,
-                    passwordError = if (!passwordValid) "Password must be at least 8 characters" else null,
+                    nameError = if (!nameValid) Res.string.error_name_required else null,
+                    emailError = if (!emailValid) Res.string.error_invalid_email else null,
+                    passwordError = if (!passwordValid) Res.string.error_password_too_short else null,
                 )
             }
             return

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_tagline">Like chores, but sweeter.</string>
+
+    <!-- Fields -->
+    <string name="field_email">Email</string>
+    <string name="field_password">Password</string>
+    <string name="field_name">Name</string>
+
+    <!-- Actions -->
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="action_create_account">Create account</string>
+    <string name="action_continue_google">Continue with Google</string>
+    <string name="action_password_show">Show</string>
+    <string name="action_password_hide">Hide</string>
+
+    <!-- Loading -->
+    <string name="login_signing_in">Signing in…</string>
+    <string name="register_creating_account">Creating account…</string>
+
+    <!-- Errors -->
+    <string name="error_invalid_email">Enter a valid email address</string>
+    <string name="error_password_too_short">Password must be at least 8 characters</string>
+    <string name="error_name_required">Name is required</string>
+</resources>

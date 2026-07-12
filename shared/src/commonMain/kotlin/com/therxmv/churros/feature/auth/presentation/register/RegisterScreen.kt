@@ -33,6 +33,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import churros.shared.generated.resources.Res
+import churros.shared.generated.resources.action_continue_google
+import churros.shared.generated.resources.action_password_hide
+import churros.shared.generated.resources.action_password_show
+import churros.shared.generated.resources.action_sign_in
+import churros.shared.generated.resources.action_sign_up
+import churros.shared.generated.resources.error_invalid_email
+import churros.shared.generated.resources.error_name_required
+import churros.shared.generated.resources.error_password_too_short
+import churros.shared.generated.resources.field_email
+import churros.shared.generated.resources.field_name
+import churros.shared.generated.resources.field_password
+import churros.shared.generated.resources.register_creating_account
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
@@ -41,6 +54,7 @@ import com.therxmv.churros.core.design.components.ChurrosPrimaryButton
 import com.therxmv.churros.core.design.components.ChurrosSecondaryButton
 import com.therxmv.churros.core.design.components.ChurrosTextButton
 import com.therxmv.churros.core.design.components.ChurrosTextField
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -101,8 +115,8 @@ private fun RegisterScreenContent(
                 ChurrosTextField(
                     value = state.name,
                     onValueChange = { onEvent(RegisterEvent.NameChanged(it)) },
-                    label = "Name",
-                    errorMessage = state.nameError,
+                    label = stringResource(Res.string.field_name),
+                    errorMessage = state.nameError?.let { stringResource(it) },
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Words,
                         imeAction = ImeAction.Next,
@@ -113,8 +127,8 @@ private fun RegisterScreenContent(
                 ChurrosTextField(
                     value = state.email,
                     onValueChange = { onEvent(RegisterEvent.EmailChanged(it)) },
-                    label = "Email",
-                    errorMessage = state.emailError,
+                    label = stringResource(Res.string.field_email),
+                    errorMessage = state.emailError?.let { stringResource(it) },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email,
                         imeAction = ImeAction.Next,
@@ -125,8 +139,8 @@ private fun RegisterScreenContent(
                 ChurrosTextField(
                     value = state.password,
                     onValueChange = { onEvent(RegisterEvent.PasswordChanged(it)) },
-                    label = "Password",
-                    errorMessage = state.passwordError,
+                    label = stringResource(Res.string.field_password),
+                    errorMessage = state.passwordError?.let { stringResource(it) },
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Password,
@@ -135,7 +149,7 @@ private fun RegisterScreenContent(
                     trailingIcon = {
                         TextButton(onClick = { passwordVisible = !passwordVisible }) {
                             Text(
-                                text = if (passwordVisible) "Hide" else "Show",
+                                text = stringResource(if (passwordVisible) Res.string.action_password_hide else Res.string.action_password_show),
                                 style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
@@ -148,7 +162,7 @@ private fun RegisterScreenContent(
             Spacer(modifier = Modifier.height(ChurrosSpacing.L))
 
             ChurrosPrimaryButton(
-                text = if (state.isLoading) "Creating account…" else "Sign Up",
+                text = stringResource(if (state.isLoading) Res.string.register_creating_account else Res.string.action_sign_up),
                 onClick = { onEvent(RegisterEvent.SignUpClicked) },
                 enabled = !state.isLoading,
                 modifier = Modifier.fillMaxWidth(),
@@ -157,7 +171,7 @@ private fun RegisterScreenContent(
             Spacer(modifier = Modifier.height(ChurrosSpacing.S))
 
             ChurrosSecondaryButton(
-                text = "Continue with Google",
+                text = stringResource(Res.string.action_continue_google),
                 onClick = { onEvent(RegisterEvent.ContinueWithGoogleClicked) },
                 enabled = !state.isLoading,
                 modifier = Modifier.fillMaxWidth(),
@@ -166,7 +180,7 @@ private fun RegisterScreenContent(
             Spacer(modifier = Modifier.height(ChurrosSpacing.M))
 
             ChurrosTextButton(
-                text = "Sign In",
+                text = stringResource(Res.string.action_sign_in),
                 onClick = { onEvent(RegisterEvent.SignInClicked) },
                 enabled = !state.isLoading,
             )
@@ -195,9 +209,9 @@ private fun RegisterScreenErrorPreview() {
             name = "",
             email = "bad",
             password = "123",
-            nameError = "Name is required",
-            emailError = "Enter a valid email address",
-            passwordError = "Password must be at least 8 characters",
+            nameError = Res.string.error_name_required,
+            emailError = Res.string.error_invalid_email,
+            passwordError = Res.string.error_password_too_short,
         ),
         onEvent = {},
     )
