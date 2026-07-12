@@ -29,7 +29,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewWrapper
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
@@ -47,12 +50,15 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(Unit) {
-        viewModel.effects.collect { effect ->
-            when (effect) {
-                LoginEffect.NavigateToHome -> onNavigateToHome()
-                LoginEffect.NavigateToRegister -> onNavigateToRegister()
+    LaunchedEffect(lifecycleOwner, viewModel.effects) {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewModel.effects.collect { effect ->
+                when (effect) {
+                    LoginEffect.NavigateToHome -> onNavigateToHome()
+                    LoginEffect.NavigateToRegister -> onNavigateToRegister()
+                }
             }
         }
     }
