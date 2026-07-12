@@ -24,4 +24,24 @@
     <string name="error_invalid_email">Enter a valid email address</string>
     <string name="error_password_too_short">Password must be at least 8 characters</string>
     <string name="error_name_required">Name is required</string>
+
+    <!-- Home -->
+    <string name="home_greeting_morning">Good morning,</string>
+    <string name="home_greeting_afternoon">Good afternoon,</string>
+    <string name="home_greeting_evening">Good evening,</string>
+    <string name="home_progress_title">Today's Progress</string>
+    <string name="home_progress_chores">%1$d of %2$d chores</string>
+    <string name="home_tasks_title">Today's Tasks</string>
+    <string name="home_tasks_empty">No tasks for today. Enjoy your day!</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_chores">Chores</string>
+    <string name="nav_shopping">Shopping</string>
+    <string name="nav_notes">Notes</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_family">Family</string>
+
+    <!-- Placeholder screens -->
+    <string name="placeholder_coming_soon">Coming soon</string>
 </resources>

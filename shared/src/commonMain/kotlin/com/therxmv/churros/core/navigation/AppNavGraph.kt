@@ -9,7 +9,7 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import com.therxmv.churros.feature.auth.presentation.SplashScreen
 import com.therxmv.churros.feature.auth.presentation.login.LoginScreen
 import com.therxmv.churros.feature.auth.presentation.register.RegisterScreen
-import com.therxmv.churros.feature.home.presentation.PlaceholderHomeScreen
+import com.therxmv.churros.feature.home.presentation.HomeScreen
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
@@ -61,7 +61,7 @@ fun AppNavGraph() {
                     },
                 )
             }
-            entry<HomeDestination> { PlaceholderHomeScreen() }
+            entry<HomeDestination> { HomeScreen() }
         },
     )
 }
