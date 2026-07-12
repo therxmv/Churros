@@ -44,4 +44,44 @@
 
     <!-- Placeholder screens -->
     <string name="placeholder_coming_soon">Coming soon</string>
+
+    <!-- Chores screen -->
+    <string name="chores_title">Chores</string>
+    <string name="chores_empty_title">No chores yet</string>
+    <string name="chores_empty_subtitle">Tap + to add your first chore</string>
+    <string name="chores_fab_add">Add chore</string>
+
+    <!-- Add Chore sheet -->
+    <string name="chores_add_title">New Chore</string>
+    <string name="chores_field_title">What needs to be done?</string>
+    <string name="chores_field_due_date">Due date</string>
+    <string name="chores_field_category">Category</string>
+    <string name="chores_action_save">Save</string>
+    <string name="chores_action_cancel">Cancel</string>
+    <string name="chores_error_title_required">Title is required</string>
+
+    <!-- Chore categories -->
+    <string name="chore_category_cleaning">Cleaning</string>
+    <string name="chore_category_cooking">Cooking</string>
+    <string name="chore_category_shopping">Shopping</string>
+    <string name="chore_category_laundry">Laundry</string>
+    <string name="chore_category_other">Other</string>
+
+    <!-- Chore filters -->
+    <string name="chores_filter_today">Today</string>
+    <string name="chores_filter_this_week">This Week</string>
+    <string name="chores_filter_all">All</string>
+
+    <!-- Chores progress -->
+    <string name="chores_progress_label">done</string>
+    <string name="chores_progress_content_desc">Chores progress: %1$d%%</string>
+
+    <!-- Chore date section headers -->
+    <string name="chores_section_today">Today</string>
+    <string name="chores_section_this_week">This Week</string>
+
+    <!-- Chore item -->
+    <string name="chore_due_date_label">Due %1$s</string>
+    <string name="chore_completed_content_desc">Completed</string>
+    <string name="chore_delete_content_desc">Delete chore</string>
 </resources>
