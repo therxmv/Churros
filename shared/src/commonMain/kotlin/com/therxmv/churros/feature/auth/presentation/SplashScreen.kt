@@ -2,6 +2,7 @@ package com.therxmv.churros.feature.auth.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -20,6 +22,7 @@ import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.action_create_account
@@ -31,6 +34,7 @@ import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
 import com.therxmv.churros.core.design.Honey500
+import com.therxmv.churros.core.design.components.ChurrosLoadingIndicator
 import com.therxmv.churros.core.design.components.ChurrosPrimaryButton
 import com.therxmv.churros.core.design.components.ChurrosSecondaryButton
 import kotlinx.coroutines.launch
@@ -48,6 +52,7 @@ fun SplashScreen(
     viewModel: SplashViewModel = koinViewModel(),
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     androidx.compose.runtime.LaunchedEffect(lifecycleOwner, viewModel.effects) {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -61,10 +66,26 @@ fun SplashScreen(
         }
     }
 
-    SplashScreenContent(
-        onNavigateToLogin = onNavigateToLogin,
-        onNavigateToRegister = onNavigateToRegister,
-    )
+    if (isLoading) {
+        SplashLoadingContent()
+    } else {
+        SplashScreenContent(
+            onNavigateToLogin = onNavigateToLogin,
+            onNavigateToRegister = onNavigateToRegister,
+        )
+    }
+}
+
+@Composable
+private fun SplashLoadingContent() {
+    Scaffold(containerColor = MaterialTheme.colorScheme.background) { paddingValues ->
+        Box(
+            modifier = Modifier.fillMaxSize().padding(paddingValues),
+            contentAlignment = Alignment.Center,
+        ) {
+            ChurrosLoadingIndicator()
+        }
+    }
 }
 
 @Composable
