@@ -124,7 +124,7 @@ fun ChurrosDangerButton(
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun ButtonsPreviewContent() {
+fun ButtonsPreviewContent() {
     Column(
         modifier = Modifier.padding(ChurrosSpacing.M),
         verticalArrangement = Arrangement.spacedBy(ChurrosSpacing.S),

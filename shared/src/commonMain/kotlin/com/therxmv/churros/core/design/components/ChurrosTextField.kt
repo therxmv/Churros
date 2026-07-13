@@ -86,7 +86,7 @@ fun ChurrosTextField(
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun TextFieldPreviewContent() {
+fun TextFieldPreviewContent() {
     var value by remember { mutableStateOf("") }
     Column(
         modifier = Modifier.padding(ChurrosSpacing.M),

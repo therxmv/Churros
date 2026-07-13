@@ -106,7 +106,7 @@ fun ChurrosBottomNavBar(
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun BottomNavBarPreviewContent() {
+fun BottomNavBarPreviewContent() {
     ChurrosBottomNavBar(
         selectedTab = HomeTab.HOME,
         onTabSelected = {},

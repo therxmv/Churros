@@ -69,7 +69,13 @@ See `docs/churros_design_system.md` for complete specs.
 # Shared module tests
 ./gradlew :shared:testAndroidHostTest
 ./gradlew :shared:iosSimulatorArm64Test
+
+# Screenshot tests (golden image regression)
+./gradlew :androidApp:updateDebugScreenshotTest   # regenerate / update goldens
+./gradlew :androidApp:validateDebugScreenshotTest # CI check — fails on visual diff
 ```
+
+> **Screenshot tests are golden truth for the UI.** Every `@ChurrosPreview` composable has a committed golden PNG under `androidApp/src/screenshotTestDebug/reference/`. If you intentionally change UI, run `updateDebugScreenshotTest` to update the goldens and commit them alongside the code change. Never delete goldens without regenerating them.
 
 iOS: open `iosApp/iosApp.xcodeproj` in Xcode and run from there.
 

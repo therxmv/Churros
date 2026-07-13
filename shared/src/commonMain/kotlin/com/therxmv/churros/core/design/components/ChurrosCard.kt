@@ -38,7 +38,7 @@ fun ChurrosCard(
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun CardPreviewContent() {
+fun CardPreviewContent() {
     Column(
         modifier = Modifier.padding(ChurrosSpacing.M),
         verticalArrangement = Arrangement.spacedBy(ChurrosSpacing.S),

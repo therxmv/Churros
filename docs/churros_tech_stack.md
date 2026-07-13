@@ -527,6 +527,31 @@ Every feature follows the same structure.
 | Crash Reporting | Firebase Crashlytics |
 | Push Notifications | Firebase Cloud Messaging |
 | Design System | Custom Churros Design System |
+| Screenshot Tests | Compose Preview Screenshot Testing |
+
+---
+
+# Testing
+
+## Screenshot Tests (Golden Image Regression)
+
+Golden PNGs are committed to the repo and serve as the visual truth for every screen and component.
+
+Tool: [Compose Preview Screenshot Testing](https://developer.android.com/studio/preview/compose-screenshot-testing) (`com.android.compose.screenshot` v`0.0.1-alpha15`)
+
+Every `@ChurrosPreview` composable has a corresponding `@PreviewTest` wrapper in `androidApp/src/screenshotTest/`. Both Dark and Light variants are captured.
+
+Goldens are stored at: `androidApp/src/screenshotTestDebug/reference/`
+
+**Rules:**
+- When you intentionally change UI, run `updateDebugScreenshotTest` and **commit the updated PNGs** alongside the code change.
+- Never delete or ignore golden files — they are part of the commit.
+- `validateDebugScreenshotTest` must pass in CI.
+
+```bash
+./gradlew :androidApp:updateDebugScreenshotTest   # regenerate / update goldens
+./gradlew :androidApp:validateDebugScreenshotTest # CI check — fails on visual diff
+```
 
 ---
 
@@ -541,8 +566,9 @@ For every new feature:
 5. Implement Android UI
 6. Verify shared code compatibility
 7. Test on Android
-8. Fix critical cross-platform issues if needed
-9. Continue with the next feature
+8. Update screenshot goldens (`updateDebugScreenshotTest`) and commit them
+9. Fix critical cross-platform issues if needed
+10. Continue with the next feature
 
 After Android MVP:
 

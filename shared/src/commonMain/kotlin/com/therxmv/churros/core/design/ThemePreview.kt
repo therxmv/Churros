@@ -44,7 +44,7 @@ private fun ColorSwatch(color: Color, label: String) {
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun ThemePreviewContent() {
+fun ThemePreviewContent() {
     val churros = MaterialTheme.churrosColors
     Surface(color = MaterialTheme.colorScheme.background) {
         Column(modifier = Modifier.padding(16.dp)) {
