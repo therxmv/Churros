@@ -95,7 +95,7 @@ fun HomeScreenContent(
                 onEvent = onEvent,
                 modifier = Modifier.padding(paddingValues),
             )
-            HomeTab.CHORES -> ChoresScreen()
+            HomeTab.CHORES -> ChoresScreen(contentPadding = paddingValues)
             HomeTab.SHOPPING -> ShoppingScreen()
             HomeTab.NOTES -> NotesScreen()
         }
