@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.error_invalid_email
 import churros.shared.generated.resources.error_password_too_short
+import com.therxmv.churros.feature.auth.domain.repository.SessionRepository
 import com.therxmv.churros.feature.auth.domain.usecase.ValidateEmailUseCase
 import com.therxmv.churros.feature.auth.domain.usecase.ValidatePasswordUseCase
 import kotlinx.coroutines.channels.Channel
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
+    private val sessionRepository: SessionRepository,
     private val validateEmail: ValidateEmailUseCase,
     private val validatePassword: ValidatePasswordUseCase,
 ) : ViewModel() {
@@ -57,6 +59,7 @@ class LoginViewModel(
     private fun mockLogin() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
+            sessionRepository.saveSession()
             _effects.send(LoginEffect.NavigateToHome)
         }
     }

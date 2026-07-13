@@ -6,5 +6,5 @@ import com.therxmv.churros.feature.home.di.homeModule
 import org.koin.dsl.module
 
 val appModule = module {
-    includes(authModule, homeModule, choresModule)
+    includes(authModule, homeModule, choresModule, platformModule)
 }

@@ -12,6 +12,7 @@ import com.therxmv.churros.core.design.components.CardPreviewContent
 import com.therxmv.churros.core.design.components.CheckboxPreviewContent
 import com.therxmv.churros.core.design.components.LogoPreviewContent
 import com.therxmv.churros.core.design.components.TextFieldPreviewContent
+import com.therxmv.churros.feature.auth.presentation.SplashScreenPreview
 import com.therxmv.churros.feature.auth.presentation.login.LoginScreenErrorPreview
 import com.therxmv.churros.feature.auth.presentation.login.LoginScreenPreview
 import com.therxmv.churros.feature.auth.presentation.register.RegisterScreenErrorPreview
@@ -64,6 +65,12 @@ fun BottomNavBarScreenshot() = BottomNavBarPreviewContent()
 fun ThemeScreenshot() = ThemePreviewContent()
 
 // ── Screens ───────────────────────────────────────────────────────────────────
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun SplashScreenScreenshot() = SplashScreenPreview()
 
 @PreviewTest
 @PreviewWrapper(ChurrosPreviewWrapper::class)

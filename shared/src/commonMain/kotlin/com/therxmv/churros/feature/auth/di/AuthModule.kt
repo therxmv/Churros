@@ -1,8 +1,11 @@
 package com.therxmv.churros.feature.auth.di
 
+import com.therxmv.churros.feature.auth.data.repository.SessionRepositoryImpl
+import com.therxmv.churros.feature.auth.domain.repository.SessionRepository
 import com.therxmv.churros.feature.auth.domain.usecase.ValidateEmailUseCase
 import com.therxmv.churros.feature.auth.domain.usecase.ValidateNameUseCase
 import com.therxmv.churros.feature.auth.domain.usecase.ValidatePasswordUseCase
+import com.therxmv.churros.feature.auth.presentation.SplashViewModel
 import com.therxmv.churros.feature.auth.presentation.login.LoginViewModel
 import com.therxmv.churros.feature.auth.presentation.register.RegisterViewModel
 import org.koin.core.module.dsl.viewModel
@@ -13,8 +16,13 @@ val authModule = module {
     factory { ValidatePasswordUseCase() }
     factory { ValidateNameUseCase() }
 
+    single<SessionRepository> { SessionRepositoryImpl(get()) }
+
+    viewModel { SplashViewModel(get()) }
+
     viewModel {
         LoginViewModel(
+            sessionRepository = get(),
             validateEmail = get(),
             validatePassword = get(),
         )
@@ -22,6 +30,7 @@ val authModule = module {
 
     viewModel {
         RegisterViewModel(
+            sessionRepository = get(),
             validateName = get(),
             validateEmail = get(),
             validatePassword = get(),
