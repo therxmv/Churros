@@ -1,9 +1,7 @@
 package com.therxmv.churros.feature.auth.presentation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,27 +18,49 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.action_create_account
 import churros.shared.generated.resources.action_sign_in
 import churros.shared.generated.resources.app_name
 import churros.shared.generated.resources.app_tagline
-import churros.shared.generated.resources.splash_illustration_placeholder_desc
+import churros.shared.generated.resources.ic_app_logo_24
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
 import com.therxmv.churros.core.design.Honey500
 import com.therxmv.churros.core.design.components.ChurrosPrimaryButton
 import com.therxmv.churros.core.design.components.ChurrosSecondaryButton
+import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
-private val IllustrationSize = 240.dp
+private val IllustrationSize = 200.dp
 
 @Composable
 fun SplashScreen(
     onNavigateToLogin: () -> Unit,
     onNavigateToRegister: () -> Unit,
+    onNavigateToHome: () -> Unit,
+    viewModel: SplashViewModel = koinViewModel(),
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    androidx.compose.runtime.LaunchedEffect(lifecycleOwner, viewModel.effects) {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            launch {
+                viewModel.effects.collect { effect ->
+                    when (effect) {
+                        SplashEffect.NavigateToHome -> onNavigateToHome()
+                    }
+                }
+            }
+        }
+    }
+
     SplashScreenContent(
         onNavigateToLogin = onNavigateToLogin,
         onNavigateToRegister = onNavigateToRegister,
@@ -63,29 +83,13 @@ fun SplashScreenContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            Box(
-                modifier = Modifier
-                    .size(IllustrationSize)
-                    .background(
-                        color = MaterialTheme.colorScheme.surfaceVariant,
-                        shape = MaterialTheme.shapes.extraLarge,
-                    )
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline,
-                        shape = MaterialTheme.shapes.extraLarge,
-                    ),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    text = stringResource(Res.string.splash_illustration_placeholder_desc),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center,
-                )
-            }
+            Image(
+                painter = painterResource(Res.drawable.ic_app_logo_24),
+                contentDescription = null,
+                modifier = Modifier.size(IllustrationSize),
+            )
 
-            Spacer(modifier = Modifier.height(ChurrosSpacing.XXL))
+            Spacer(modifier = Modifier.height(ChurrosSpacing.XL))
 
             Text(
                 text = stringResource(Res.string.app_name),

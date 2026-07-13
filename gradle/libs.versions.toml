@@ -21,6 +21,7 @@ kotlinx-serialization = "1.11.0"
 ktor = "3.5.1"
 material3 = "1.11.0-alpha07"
 navigation3 = "1.1.1"
+datastore = "1.2.1"
 room = "2.8.4"
 screenshot = "0.0.1-alpha15"
 
@@ -36,6 +37,7 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
 navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
