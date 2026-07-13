@@ -37,6 +37,10 @@ fun AppNavGraph() {
                         backStack.removeAll { true }
                         backStack.add(LoginDestination)
                     },
+                    onNavigateToRegister = {
+                        backStack.removeAll { true }
+                        backStack.add(RegisterDestination)
+                    },
                 )
             }
             entry<LoginDestination> {
