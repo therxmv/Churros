@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.roborazzi)
 }
 
 kotlin {
@@ -62,6 +63,13 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        androidHostTest.dependencies {
+            implementation(libs.roborazzi.core)
+            implementation(libs.roborazzi.compose)
+            implementation(libs.roborazzi.scanner)
+            implementation(libs.robolectric)
+            implementation(libs.junit)
         }
     }
 }
