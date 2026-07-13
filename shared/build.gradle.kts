@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.roborazzi)
 }
 
 kotlin {
@@ -20,7 +19,7 @@ kotlin {
         }
     }
     
-    androidLibrary {
+    android {
        namespace = "com.therxmv.churros.shared"
        compileSdk = libs.versions.android.compileSdk.get().toInt()
        minSdk = libs.versions.android.minSdk.get().toInt()
@@ -64,13 +63,7 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        androidHostTest.dependencies {
-            implementation(libs.roborazzi.core)
-            implementation(libs.roborazzi.compose)
-            implementation(libs.roborazzi.scanner)
-            implementation(libs.robolectric)
-            implementation(libs.junit)
-        }
+
     }
 }
 

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.screenshot)
 }
 
 kotlin {
@@ -20,10 +21,14 @@ dependencies {
 
     implementation(libs.compose.uiToolingPreview)
     debugImplementation(libs.compose.uiTooling)
+
+    screenshotTestImplementation(libs.screenshot.validation.api)
+    screenshotTestImplementation(libs.compose.uiTooling)
 }
 
 android {
     namespace = "com.therxmv.churros"
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

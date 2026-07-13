@@ -48,6 +48,6 @@ fun ChurrosLogo(
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun LogoPreviewContent() {
+fun LogoPreviewContent() {
     ChurrosLogo(modifier = Modifier.padding(ChurrosSpacing.M))
 }

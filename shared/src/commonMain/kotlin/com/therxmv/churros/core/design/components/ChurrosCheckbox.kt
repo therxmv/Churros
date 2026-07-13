@@ -80,7 +80,7 @@ fun ChurrosCheckboxRow(
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun CheckboxPreviewContent() {
+fun CheckboxPreviewContent() {
     var checked1 by remember { mutableStateOf(false) }
     var checked2 by remember { mutableStateOf(true) }
     Column(

@@ -84,7 +84,7 @@ fun RegisterScreen(
 }
 
 @Composable
-private fun RegisterScreenContent(
+fun RegisterScreenContent(
     state: RegisterState,
     onEvent: (RegisterEvent) -> Unit,
 ) {
@@ -193,7 +193,7 @@ private fun RegisterScreenContent(
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun RegisterScreenPreview() {
+fun RegisterScreenPreview() {
     RegisterScreenContent(
         state = RegisterState(),
         onEvent = {},
@@ -203,7 +203,7 @@ private fun RegisterScreenPreview() {
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun RegisterScreenErrorPreview() {
+fun RegisterScreenErrorPreview() {
     RegisterScreenContent(
         state = RegisterState(
             name = "",

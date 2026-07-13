@@ -74,7 +74,7 @@ fun HomeScreen(
 }
 
 @Composable
-private fun HomeScreenContent(
+fun HomeScreenContent(
     state: HomeState,
     onEvent: (HomeEvent) -> Unit,
 ) {
@@ -240,7 +240,7 @@ private fun HomeTodayTasksCard(
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun HomeScreenPreview() {
+fun HomeScreenPreview() {
     HomeScreenContent(
         state = HomeState(
             userName = "Roman",
@@ -260,7 +260,7 @@ private fun HomeScreenPreview() {
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun HomeScreenEmptyPreview() {
+fun HomeScreenEmptyPreview() {
     HomeScreenContent(
         state = HomeState(
             userName = "Roman",

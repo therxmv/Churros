@@ -83,7 +83,7 @@ fun LoginScreen(
 }
 
 @Composable
-private fun LoginScreenContent(
+fun LoginScreenContent(
     state: LoginState,
     onEvent: (LoginEvent) -> Unit,
 ) {
@@ -189,7 +189,7 @@ private fun LoginScreenContent(
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun LoginScreenPreview() {
+fun LoginScreenPreview() {
     LoginScreenContent(
         state = LoginState(),
         onEvent = {},
@@ -199,7 +199,7 @@ private fun LoginScreenPreview() {
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
-private fun LoginScreenErrorPreview() {
+fun LoginScreenErrorPreview() {
     LoginScreenContent(
         state = LoginState(
             email = "bad",
