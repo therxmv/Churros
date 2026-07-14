@@ -10,6 +10,7 @@ import com.therxmv.churros.core.design.components.BottomNavBarPreviewContent
 import com.therxmv.churros.core.design.components.ButtonsPreviewContent
 import com.therxmv.churros.core.design.components.CardPreviewContent
 import com.therxmv.churros.core.design.components.CheckboxPreviewContent
+import com.therxmv.churros.core.design.components.DividerPreviewContent
 import com.therxmv.churros.core.design.components.LogoPreviewContent
 import com.therxmv.churros.core.design.components.TextFieldPreviewContent
 import com.therxmv.churros.feature.auth.presentation.SplashScreenPreview
@@ -45,6 +46,12 @@ fun CheckboxScreenshot() = CheckboxPreviewContent()
 @ChurrosPreview
 @Composable
 fun CardScreenshot() = CardPreviewContent()
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun DividerScreenshot() = DividerPreviewContent()
 
 @PreviewTest
 @PreviewWrapper(ChurrosPreviewWrapper::class)

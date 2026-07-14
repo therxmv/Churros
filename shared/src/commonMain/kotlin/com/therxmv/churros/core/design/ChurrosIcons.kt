@@ -6,6 +6,7 @@ import churros.shared.generated.resources.ic_chores_line
 import churros.shared.generated.resources.ic_cleaning_line
 import churros.shared.generated.resources.ic_cooking_line
 import churros.shared.generated.resources.ic_delete_line
+import churros.shared.generated.resources.ic_google
 import churros.shared.generated.resources.ic_home_fill
 import churros.shared.generated.resources.ic_home_line
 import churros.shared.generated.resources.ic_laundry_line
@@ -14,6 +15,8 @@ import churros.shared.generated.resources.ic_notes_line
 import churros.shared.generated.resources.ic_other_line
 import churros.shared.generated.resources.ic_shopping_fill
 import churros.shared.generated.resources.ic_shopping_line
+import churros.shared.generated.resources.ic_visible_line
+import churros.shared.generated.resources.ic_visible_off_line
 import org.jetbrains.compose.resources.DrawableResource
 
 object ChurrosIcons {
@@ -35,4 +38,9 @@ object ChurrosIcons {
 
     // ── Action icons ───────────────────────────────────────────────────────────
     val Delete: DrawableResource = Res.drawable.ic_delete_line
+
+    val EyeVisible: DrawableResource = Res.drawable.ic_visible_line
+    val EyeHidden: DrawableResource = Res.drawable.ic_visible_off_line
+
+    val GoogleLogo: DrawableResource = Res.drawable.ic_google
 }

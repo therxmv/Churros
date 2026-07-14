@@ -26,6 +26,7 @@ private val LogoIconSizeDefault = 40.dp
 fun ChurrosLogo(
     modifier: Modifier = Modifier,
     iconSize: Dp = LogoIconSizeDefault,
+    showText: Boolean = true,
 ) {
     Row(
         modifier = modifier,
@@ -37,11 +38,13 @@ fun ChurrosLogo(
             contentDescription = null,
             modifier = Modifier.size(iconSize),
         )
-        Text(
-            text = "Churros",
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
+        if (showText) {
+            Text(
+                text = "Churros",
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
     }
 }
 

@@ -11,10 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -36,23 +38,28 @@ import androidx.lifecycle.repeatOnLifecycle
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.action_continue_google
 import churros.shared.generated.resources.action_create_account
-import churros.shared.generated.resources.action_password_hide
-import churros.shared.generated.resources.action_password_show
+import churros.shared.generated.resources.action_password_hide_desc
+import churros.shared.generated.resources.action_password_show_desc
 import churros.shared.generated.resources.action_sign_in
-import churros.shared.generated.resources.app_tagline
+import churros.shared.generated.resources.divider_or
 import churros.shared.generated.resources.error_invalid_email
 import churros.shared.generated.resources.error_password_too_short
 import churros.shared.generated.resources.field_email
 import churros.shared.generated.resources.field_password
+import churros.shared.generated.resources.login_heading
 import churros.shared.generated.resources.login_signing_in
+import churros.shared.generated.resources.login_subtitle
+import com.therxmv.churros.core.design.ChurrosIcons
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
+import com.therxmv.churros.core.design.components.ChurrosDivider
 import com.therxmv.churros.core.design.components.ChurrosLogo
 import com.therxmv.churros.core.design.components.ChurrosPrimaryButton
 import com.therxmv.churros.core.design.components.ChurrosSecondaryButton
 import com.therxmv.churros.core.design.components.ChurrosTextButton
 import com.therxmv.churros.core.design.components.ChurrosTextField
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -103,19 +110,48 @@ fun LoginScreenContent(
         ) {
             Spacer(modifier = Modifier.height(ChurrosSpacing.XXL))
 
-            ChurrosLogo()
+            // Logo
+            ChurrosLogo(iconSize = 80.dp, showText = false)
 
-            Spacer(modifier = Modifier.height(ChurrosSpacing.S))
+            Spacer(modifier = Modifier.height(ChurrosSpacing.L))
 
+            // Heading
             Text(
-                text = stringResource(Res.string.app_tagline),
+                text = stringResource(Res.string.login_heading),
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center,
+            )
+
+            Spacer(modifier = Modifier.height(ChurrosSpacing.XS))
+
+            // Subtitle
+            Text(
+                text = stringResource(Res.string.login_subtitle),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
             )
 
-            Spacer(modifier = Modifier.height(ChurrosSpacing.XXL))
+            Spacer(modifier = Modifier.height(ChurrosSpacing.XL))
 
+            // Continue with Google button
+            ChurrosSecondaryButton(
+                text = stringResource(Res.string.action_continue_google),
+                onClick = { onEvent(LoginEvent.ContinueWithGoogleClicked) },
+                enabled = !state.isLoading,
+                leadingIcon = ChurrosIcons.GoogleLogo,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            Spacer(modifier = Modifier.height(ChurrosSpacing.L))
+
+            // "or" divider
+            ChurrosDivider(label = stringResource(Res.string.divider_or))
+
+            Spacer(modifier = Modifier.height(ChurrosSpacing.L))
+
+            // Email + Password form
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(ChurrosSpacing.M),
@@ -143,11 +179,15 @@ fun LoginScreenContent(
                         imeAction = ImeAction.Done,
                     ),
                     trailingIcon = {
-                        TextButton(onClick = { passwordVisible = !passwordVisible }) {
-                            Text(
-                                text = stringResource(if (passwordVisible) Res.string.action_password_hide else Res.string.action_password_show),
-                                style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Icon(
+                                painter = painterResource(
+                                    if (passwordVisible) ChurrosIcons.EyeHidden else ChurrosIcons.EyeVisible,
+                                ),
+                                contentDescription = stringResource(
+                                    if (passwordVisible) Res.string.action_password_hide_desc else Res.string.action_password_show_desc,
+                                ),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     },
@@ -157,6 +197,7 @@ fun LoginScreenContent(
 
             Spacer(modifier = Modifier.height(ChurrosSpacing.L))
 
+            // Sign In button
             ChurrosPrimaryButton(
                 text = stringResource(if (state.isLoading) Res.string.login_signing_in else Res.string.action_sign_in),
                 onClick = { onEvent(LoginEvent.SignInClicked) },
@@ -164,17 +205,9 @@ fun LoginScreenContent(
                 modifier = Modifier.fillMaxWidth(),
             )
 
-            Spacer(modifier = Modifier.height(ChurrosSpacing.S))
-
-            ChurrosSecondaryButton(
-                text = stringResource(Res.string.action_continue_google),
-                onClick = { onEvent(LoginEvent.ContinueWithGoogleClicked) },
-                enabled = !state.isLoading,
-                modifier = Modifier.fillMaxWidth(),
-            )
-
             Spacer(modifier = Modifier.height(ChurrosSpacing.M))
 
+            // Create account link
             ChurrosTextButton(
                 text = stringResource(Res.string.action_create_account),
                 onClick = { onEvent(LoginEvent.CreateAccountClicked) },
