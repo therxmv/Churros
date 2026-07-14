@@ -18,9 +18,6 @@ import com.therxmv.churros.feature.auth.presentation.login.LoginScreenErrorPrevi
 import com.therxmv.churros.feature.auth.presentation.login.LoginScreenPreview
 import com.therxmv.churros.feature.auth.presentation.register.RegisterScreenErrorPreview
 import com.therxmv.churros.feature.auth.presentation.register.RegisterScreenPreview
-import com.therxmv.churros.feature.home.presentation.HomeScreenEmptyPreview
-import com.therxmv.churros.feature.home.presentation.HomeScreenPreview
-
 // ── Components ────────────────────────────────────────────────────────────────
 
 @PreviewTest
@@ -78,18 +75,6 @@ fun ThemeScreenshot() = ThemePreviewContent()
 @ChurrosPreview
 @Composable
 fun SplashScreenScreenshot() = SplashScreenPreview()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun HomeScreenScreenshot() = HomeScreenPreview()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun HomeScreenEmptyScreenshot() = HomeScreenEmptyPreview()
 
 @PreviewTest
 @PreviewWrapper(ChurrosPreviewWrapper::class)
