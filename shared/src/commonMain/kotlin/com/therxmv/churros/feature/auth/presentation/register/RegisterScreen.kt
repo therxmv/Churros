@@ -205,6 +205,7 @@ fun RegisterScreenContent(
                 text = stringResource(Res.string.action_continue_google),
                 onClick = { onEvent(RegisterEvent.ContinueWithGoogleClicked) },
                 enabled = !state.isLoading,
+                leadingIcon = ChurrosIcons.GoogleLogo,
                 modifier = Modifier.fillMaxWidth(),
             )
 

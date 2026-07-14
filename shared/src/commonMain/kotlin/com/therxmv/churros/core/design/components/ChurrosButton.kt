@@ -1,10 +1,14 @@
 package com.therxmv.churros.core.design.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosShapes
@@ -58,6 +64,7 @@ fun ChurrosSecondaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    leadingIcon: DrawableResource? = null,
 ) {
     OutlinedButton(
         onClick = onClick,
@@ -71,6 +78,14 @@ fun ChurrosSecondaryButton(
         ),
         contentPadding = ButtonContentPadding,
     ) {
+        if (leadingIcon != null) {
+            Image(
+                painter = painterResource(leadingIcon),
+                contentDescription = null,
+                modifier = Modifier.size(20.dp),
+            )
+            Spacer(Modifier.width(ChurrosSpacing.S))
+        }
         Text(text = text, style = MaterialTheme.typography.labelLarge)
     }
 }
