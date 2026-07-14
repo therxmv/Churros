@@ -34,11 +34,9 @@ fun AppNavGraph() {
             entry<SplashDestination> {
                 SplashScreen(
                     onNavigateToLogin = {
-                        backStack.removeAll { true }
                         backStack.add(LoginDestination)
                     },
                     onNavigateToRegister = {
-                        backStack.removeAll { true }
                         backStack.add(RegisterDestination)
                     },
                     onNavigateToHome = {
@@ -65,8 +63,10 @@ fun AppNavGraph() {
                         backStack.add(HomeDestination)
                     },
                     onNavigateToLogin = {
-                        backStack.removeAll { true }
-                        backStack.add(LoginDestination)
+                        backStack.removeLast()
+                        if (backStack.lastOrNull() !is LoginDestination) {
+                            backStack.add(LoginDestination)
+                        }
                     },
                 )
             }

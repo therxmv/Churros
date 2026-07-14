@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <!-- App -->
-    <string name="app_name">Welcome to Churros</string>
+    <string name="app_name">Churros</string>
     <string name="app_tagline">Like chores, but sweeter.</string>
     <string name="splash_illustration_placeholder_desc">Illustration placeholder</string>
+
+    <!-- Splash screen -->
+    <string name="splash_welcome_to">Welcome to</string>
+    <string name="splash_tagline_prefix">Like chores, but </string>
+    <string name="splash_tagline_suffix">sweeter.</string>
 
     <!-- Fields -->
     <string name="field_email">Email</string>
@@ -17,6 +22,18 @@
     <string name="action_continue_google">Continue with Google</string>
     <string name="action_password_show">Show</string>
     <string name="action_password_hide">Hide</string>
+    <string name="action_password_show_desc">Show password</string>
+    <string name="action_password_hide_desc">Hide password</string>
+
+    <!-- Login screen -->
+    <string name="login_heading">Welcome back!</string>
+    <string name="login_subtitle">Sign in to continue</string>
+
+    <!-- Register screen -->
+    <string name="register_tagline">Like chores, but sweeter.</string>
+
+    <!-- Divider -->
+    <string name="divider_or">or</string>
 
     <!-- Loading -->
     <string name="login_signing_in">Signing in…</string>

@@ -35,4 +35,12 @@ object ChurrosIcons {
 
     // ── Action icons ───────────────────────────────────────────────────────────
     val Delete: DrawableResource = Res.drawable.ic_delete_line
+
+    // TODO: replace with correct eye icon
+    val EyeVisible: DrawableResource = Res.drawable.ic_delete_line
+    // TODO: replace with correct eye-off icon
+    val EyeHidden: DrawableResource = Res.drawable.ic_delete_line
+
+    // TODO: replace with correct Google logo
+    val GoogleLogo: DrawableResource = Res.drawable.ic_delete_line
 }
