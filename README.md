@@ -62,13 +62,16 @@ open iosApp/iosApp.xcodeproj
 
 # Shared module — iOS simulator tests
 ./gradlew :shared:iosSimulatorArm64Test
+
+# Screenshot tests (golden image regression)
+./gradlew :androidApp:updateDebugScreenshotTest   # regenerate / update goldens
+./gradlew :androidApp:validateDebugScreenshotTest # CI check — fails on visual diff
 ```
 
 ## Documentation
 
-- [`docs/churros_idea.md`](docs/churros_idea.md) — Product vision and feature specs
-- [`docs/churros_design_system.md`](docs/churros_design_system.md) — Colors, typography, spacing
-- [`docs/churros_tech_stack.md`](docs/churros_tech_stack.md) — Architecture decisions
+- [`docs/churros_tech_stack.md`](docs/churros_tech_stack.md) — Architecture decisions and tech stack
+- [`docs/Design/`](docs/Design/) — Screen mockups (Auth, Chores, Family, Home, Onboarding, Profile)
 
 ## Versions
 
@@ -76,7 +79,7 @@ open iosApp/iosApp.xcodeproj
 |------|---------|
 | Kotlin | 2.4.0 |
 | Compose Multiplatform | 1.11.1 |
-| AGP | 9.0.1 |
-| compileSdk / targetSdk | 36 |
+| AGP | 9.2.1 |
+| compileSdk / targetSdk | 37 |
 | minSdk | 24 |
 | JDK | 21 |

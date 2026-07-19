@@ -8,13 +8,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Churros** is an Android-first household management app for families, couples, and roommates. Tagline: "Like chores, but sweeter."
 
-**Current Phase:** KMP scaffold in place. Application code not yet written.
+**Current Phase:** Design system tokens implemented (`core/design/`). All features are clean scaffolds awaiting implementation.
 
 **Key Documentation:**
-- `docs/churros_idea.md` — Product vision, features, target audience, brand personality
-- `docs/churros_design_system.md` — Colors, typography, spacing, design principles
 - `docs/churros_tech_stack.md` — Full architecture, technology decisions, development workflow
-- `docs/roadmap.md` — Project phases and scope (Phase 1: Foundation, Phase 2: Backend & Family, Phase 3: Advanced Features)
+- `docs/Design/` — Screen mockups: Auth, Chores, Family, Home, Onboarding, Profile
 
 Read these docs when working on product decisions, UI implementation, or architecture.
 
@@ -56,7 +54,7 @@ feature/[name]/
 
 **Principles:** Warm, spacious, soft (rounded corners everywhere), minimal, never corporate.
 
-See `docs/churros_design_system.md` for complete specs.
+See `shared/src/commonMain/kotlin/com/therxmv/churros/core/design/` for complete specs (`Color.kt`, `Theme.kt`, `Type.kt`, `Shape.kt`, `Spacing.kt`).
 
 ---
 
@@ -76,6 +74,8 @@ See `docs/churros_design_system.md` for complete specs.
 ```
 
 > **Screenshot tests are golden truth for the UI.** Every `@ChurrosPreview` composable has a committed golden PNG under `androidApp/src/screenshotTestDebug/reference/`. If you intentionally change UI, run `updateDebugScreenshotTest` to update the goldens and commit them alongside the code change. Never delete goldens without regenerating them.
+>
+> **Note:** `androidApp/src/screenshotTest/ChurrosScreenshots.kt` currently references components that are not yet implemented. Before running screenshot tests, ensure all referenced composables exist or update the file to match what is implemented.
 
 iOS: open `iosApp/iosApp.xcodeproj` in Xcode and run from there.
 
@@ -89,7 +89,7 @@ All project tickets are GitHub Issues at `therxmv/Churros`.
 
 When the user asks you to create a ticket:
 
-1. Infer `type`, `epic`, `priority` from the description and context in `docs/churros_idea.md` / `docs/churros_tech_stack.md`.
+1. Infer `type`, `epic`, `priority` from the description and context in `docs/churros_tech_stack.md`.
 2. Draft an issue body using the template below.
 3. Create the issue, assigning it to the appropriate milestone:
    ```bash
