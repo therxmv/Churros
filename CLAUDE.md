@@ -12,6 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Key Documentation:**
 - `docs/churros_tech_stack.md` — Full architecture, technology decisions, development workflow
+- `docs/features.md` — Complete feature catalogue derived from design mockups (screens, flows, UI elements)
 - `docs/Design/` — Screen mockups: Auth, Chores, Family, Home, Onboarding, Profile
 
 Read these docs when working on product decisions, UI implementation, or architecture.

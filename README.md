@@ -6,10 +6,16 @@ Android-first household management app for families, couples, and roommates. Bui
 
 ## Features (planned)
 
-- **Chores** — recurring tasks, assignments, priorities
-- **Shopping Lists** — real-time collaborative, multi-store
-- **Notes** — digital sticky notes with color labels
-- **Family** — member management, roles, invites
+| Flow | Screens | Key capabilities |
+|------|---------|-----------------|
+| **Onboarding** | 3-slide carousel | Welcome, value props, Create Account / Sign In CTAs |
+| **Auth** | Sign In, Sign Up, Forgot Password, Verify Email, Set New Password | Email + password, Google SSO, Apple SSO, OTP verification, password strength rules |
+| **Home** | Dashboard | Family greeting, My Chores + Family Goal stats, Today's Chores list, Recent Activity feed, FAB quick-add |
+| **Chores** | List, Create Chore sheet | Filter by assignee + date, chore cards with points, create with category / repeat / priority / reward points |
+| **Family** | Dashboard, Manage Family, Add Member, Permissions, Household Profile | Progress circle, member list, role-based permissions (Parent / Kid / Caregiver), household settings |
+| **Settings & Notifications** | Settings, Notifications | Profile edit, dark mode, language, notification preferences, actionable reward-request notifications |
+
+See [`docs/features.md`](docs/features.md) for the full feature catalogue with all UI elements and fields.
 
 ## Tech Stack
 
@@ -71,6 +77,7 @@ open iosApp/iosApp.xcodeproj
 ## Documentation
 
 - [`docs/churros_tech_stack.md`](docs/churros_tech_stack.md) — Architecture decisions and tech stack
+- [`docs/features.md`](docs/features.md) — Full feature catalogue (screens, flows, UI elements)
 - [`docs/Design/`](docs/Design/) — Screen mockups (Auth, Chores, Family, Home, Onboarding, Profile)
 
 ## Versions
