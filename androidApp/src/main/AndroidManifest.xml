@@ -16,6 +16,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- OAuth deep-link callback: com.therxmv.churros://auth/callback -->
+            <intent-filter android:autoVerify="false">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="com.therxmv.churros"
+                    android:host="auth"
+                    android:pathPrefix="/callback" />
+            </intent-filter>
         </activity>
     </application>
 

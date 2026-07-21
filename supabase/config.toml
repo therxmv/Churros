@@ -75,7 +75,7 @@ enabled = true
 # used in emails.
 site_url = "http://127.0.0.1:3000"
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://127.0.0.1:3000"]
+additional_redirect_urls = ["https://127.0.0.1:3000", "com.therxmv.churros://auth/callback"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # If disabled, the refresh token will never expire.
@@ -97,7 +97,7 @@ enable_signup = true
 # addresses. If disabled, only the new email is required to confirm.
 double_confirm_changes = true
 # If enabled, users need to confirm their email address before signing in.
-enable_confirmations = false
+enable_confirmations = true
 # If enabled, users will need to reauthenticate or have logged in recently to change their password.
 secure_password_change = false
 # Controls the minimum amount of time that must pass before sending another signup confirmation or
@@ -107,12 +107,26 @@ max_frequency = "1s"
 otp_length = 6
 # Number of seconds before the email OTP expires.
 otp_expiry = 3600
+# Magic link (passwordless email login) is intentionally disabled — Churros uses
+# email+password and OAuth only. To re-enable, set enable_signup = true above.
 
 [auth.sms]
 # Allow/disallow new user signups via SMS to your project.
 enable_signup = false
 # If enabled, users need to confirm their phone number before signing in.
 enable_confirmations = false
+
+[auth.external.google]
+enabled = true
+client_id = "env(GOOGLE_CLIENT_ID)"
+secret = "env(GOOGLE_CLIENT_SECRET)"
+# Deep-link used as the OAuth redirect target on Android.
+redirect_uri = "com.therxmv.churros://auth/callback"
+# skip_nonce_check = false
+
+# Apple OAuth is intentionally omitted from local config.
+# Enable it manually in the Supabase dashboard and follow the steps in
+# supabase/AUTH_SETUP.md — it requires certificates that cannot be stored here.
 
 # Use declarative schemas for database migrations.
 # https://supabase.com/docs/guides/local-development/declarative-database-schemas
