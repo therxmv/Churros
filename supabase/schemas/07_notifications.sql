@@ -62,3 +62,18 @@ create policy "notifications: recipient can update"
 
 -- Inserts are handled only by service-role edge functions.
 -- No direct insert policy is granted to authenticated users.
+
+-- ---------------------------------------------------------------------------
+-- Realtime
+-- Enable row-level broadcast for this table so clients can subscribe to
+-- new notifications as they are inserted by edge functions.
+--
+-- Channel name convention: notifications:<user_id>
+-- Example: notifications:a1b2c3d4-...
+--
+-- RLS is enforced on Realtime: the existing SELECT policy
+-- ("notifications: recipient can select") restricts broadcasts to the
+-- recipient only.  No additional RLS is needed.
+-- ---------------------------------------------------------------------------
+
+alter publication supabase_realtime add table public.notifications;

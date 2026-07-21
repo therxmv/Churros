@@ -35,3 +35,17 @@ create policy "profiles: owner can update"
 
 -- Inserts are handled only by the handle_new_user trigger (security definer).
 -- No direct insert policy is granted to authenticated users.
+
+-- ---------------------------------------------------------------------------
+-- Realtime
+-- Enable row-level broadcast for this table so clients can subscribe to
+-- changes on their own profile row.
+--
+-- Channel name convention: profiles:<user_id>
+-- Example: profiles:a1b2c3d4-...
+--
+-- RLS is enforced on Realtime: the existing SELECT policy
+-- ("profiles: owner can select") restricts broadcasts to the row owner.
+-- ---------------------------------------------------------------------------
+
+alter publication supabase_realtime add table public.profiles;

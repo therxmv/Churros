@@ -98,3 +98,18 @@ create policy "chores: parents can delete"
               and hm.role = 'parent'
         )
     );
+
+-- ---------------------------------------------------------------------------
+-- Realtime
+-- Enable row-level broadcast for this table so clients can subscribe to
+-- chore changes (new assignments, completions, edits, deletions).
+--
+-- Channel name convention: chores:<household_id>
+-- Example: chores:b2c3d4e5-...
+--
+-- RLS is enforced on Realtime: the existing SELECT policy
+-- ("chores: members can select") restricts broadcasts to members of the
+-- relevant household.
+-- ---------------------------------------------------------------------------
+
+alter publication supabase_realtime add table public.chores;

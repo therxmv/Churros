@@ -74,3 +74,17 @@ create policy "households: parents can delete"
               and hm.role = 'parent'
         )
     );
+
+-- ---------------------------------------------------------------------------
+-- Realtime
+-- Enable row-level broadcast for this table so clients can subscribe to
+-- household updates (name, photo, address changes).
+--
+-- Channel name convention: households:<household_id>
+-- Example: households:b2c3d4e5-...
+--
+-- RLS is enforced on Realtime: the existing SELECT policy
+-- ("households: members can select") restricts broadcasts to household members.
+-- ---------------------------------------------------------------------------
+
+alter publication supabase_realtime add table public.households;
