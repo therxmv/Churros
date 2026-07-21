@@ -38,27 +38,13 @@ alter table public.chores enable row level security;
 create policy "chores: members can select"
     on public.chores
     for select
-    using (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = household_id
-              and hm.user_id = auth.uid()
-        )
-    );
+    using (public.is_household_member(household_id));
 
 -- Any member of the household can create a chore.
 create policy "chores: members can insert"
     on public.chores
     for insert
-    with check (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = household_id
-              and hm.user_id = auth.uid()
-        )
-    );
+    with check (public.is_household_member(household_id));
 
 -- Only the assignee or a parent of the household may update a chore.
 create policy "chores: assignee or parent can update"
@@ -66,38 +52,18 @@ create policy "chores: assignee or parent can update"
     for update
     using (
         auth.uid() = assignee_id
-        or exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = household_id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
+        or public.is_household_parent(household_id)
     )
     with check (
         auth.uid() = assignee_id
-        or exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = household_id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
+        or public.is_household_parent(household_id)
     );
 
 -- Only parents may delete a chore.
 create policy "chores: parents can delete"
     on public.chores
     for delete
-    using (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = household_id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
-    );
+    using (public.is_household_parent(household_id));
 
 -- ---------------------------------------------------------------------------
 -- Realtime

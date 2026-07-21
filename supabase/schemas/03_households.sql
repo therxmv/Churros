@@ -21,37 +21,14 @@ alter table public.households enable row level security;
 create policy "households: members can select"
     on public.households
     for select
-    using (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = id
-              and hm.user_id = auth.uid()
-        )
-    );
+    using (public.is_household_member(id));
 
 -- Only parents may update household info.
 create policy "households: parents can update"
     on public.households
     for update
-    using (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
-    )
-    with check (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
-    );
+    using (public.is_household_parent(id))
+    with check (public.is_household_parent(id));
 
 -- Only parents may insert a new household row.
 -- (In practice this is done during onboarding via a server-side function,
@@ -65,15 +42,7 @@ create policy "households: parents can insert"
 create policy "households: parents can delete"
     on public.households
     for delete
-    using (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
-    );
+    using (public.is_household_parent(id));
 
 -- ---------------------------------------------------------------------------
 -- Realtime
