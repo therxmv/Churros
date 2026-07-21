@@ -56,4 +56,4 @@ kotlin-native/
 
 # Environment
 .env
-.env.*
+.env
