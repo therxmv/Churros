@@ -25,65 +25,84 @@ create index if not exists household_members_household_id_idx
 
 alter table public.household_members enable row level security;
 
+-- ---------------------------------------------------------------------------
+-- Helper functions (SECURITY DEFINER — bypass RLS for membership checks)
+-- Using plain subqueries in policies would create self-referential RLS on
+-- this table. These functions run as the function owner, sidestepping the
+-- cycle cleanly.
+-- ---------------------------------------------------------------------------
+
+create or replace function public.get_my_household_ids()
+returns setof uuid
+language sql security definer stable
+set search_path = public
+as $$
+    select household_id from public.household_members where user_id = auth.uid();
+$$;
+
+create or replace function public.is_household_member(p_household_id uuid)
+returns boolean
+language sql security definer stable
+set search_path = public
+as $$
+    select exists (
+        select 1 from public.household_members
+        where household_id = p_household_id and user_id = auth.uid()
+    );
+$$;
+
+create or replace function public.is_household_parent(p_household_id uuid)
+returns boolean
+language sql security definer stable
+set search_path = public
+as $$
+    select exists (
+        select 1 from public.household_members
+        where household_id = p_household_id
+          and user_id = auth.uid()
+          and role = 'parent'
+    );
+$$;
+
 -- Any member can see who else is in their household.
 create policy "household_members: members can select"
     on public.household_members
     for select
-    using (
-        household_id in (
-            select hm.household_id
-            from public.household_members hm
-            where hm.user_id = auth.uid()
-        )
-    );
+    using (household_id in (select public.get_my_household_ids()));
 
 -- Only parents can add new members to their household.
 create policy "household_members: parents can insert"
     on public.household_members
     for insert
-    with check (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = household_id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
-    );
+    with check (public.is_household_parent(household_id));
 
 -- Only parents can change a member's role.
 create policy "household_members: parents can update"
     on public.household_members
     for update
-    using (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = household_id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
-    )
-    with check (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = household_id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
-    );
+    using (public.is_household_parent(household_id))
+    with check (public.is_household_parent(household_id));
 
 -- Only parents can remove members.
 create policy "household_members: parents can delete"
     on public.household_members
     for delete
-    using (
-        exists (
-            select 1
-            from public.household_members hm
-            where hm.household_id = household_id
-              and hm.user_id = auth.uid()
-              and hm.role = 'parent'
-        )
-    );
+    using (public.is_household_parent(household_id));
+
+-- ---------------------------------------------------------------------------
+-- Realtime
+-- Enable row-level broadcast for this table so clients can react when a new
+-- member joins, a role changes, or a member is removed.
+--
+-- Channel name convention: household_members:<household_id>
+-- Example: household_members:b2c3d4e5-...
+--
+-- RLS is enforced on Realtime: the existing SELECT policy
+-- ("household_members: members can select") restricts broadcasts to members
+-- of the same household.
+--
+-- RLS is enforced on Realtime: the helper functions above are re-evaluated
+-- per broadcast row, so only household members receive events.
+-- ---------------------------------------------------------------------------
+
+alter publication supabase_realtime add table public.household_members;
