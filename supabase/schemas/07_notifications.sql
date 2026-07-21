@@ -7,6 +7,7 @@
 create type if not exists public.notification_type as enum (
     'chore_assigned',
     'chore_completed',
+    'chore_edited',
     'reward_request',
     'daily_goal'
 );
@@ -58,12 +59,6 @@ create policy "notifications: recipient can update"
     for update
     using (auth.uid() = recipient_id)
     with check (auth.uid() = recipient_id);
-
--- A user can delete their own notifications.
-create policy "notifications: recipient can delete"
-    on public.notifications
-    for delete
-    using (auth.uid() = recipient_id);
 
 -- Inserts are handled only by service-role edge functions.
 -- No direct insert policy is granted to authenticated users.
