@@ -88,28 +88,19 @@ RLS is enabled on every table.  The general philosophy:
 - **chores** — any member can read and create; only the assignee or a parent can update; only parents can delete.
 - **notifications** — recipient-only read and mark-as-read; inserts are service-role only (edge functions).
 
-### household_members self-join caveat
+### RLS helper functions
 
-The `household_members` SELECT policy contains a subquery that reads back from `household_members` itself (to find the current user's `household_id`).  This is a self-referential RLS pattern — Postgres evaluates RLS on every row scan, including the inner subquery.
+Policies on `households`, `household_members`, and `chores` all need to check whether the current user is a member or parent of a given household.  Doing this with a plain subquery on `household_members` would create a self-referential RLS loop on that table (Postgres evaluates RLS on every row scan, including inner subqueries).
 
-**How it works in practice:**
+To avoid the loop, three `SECURITY DEFINER` helpers are defined in `04_household_members.sql`.  They run as the function owner, bypassing RLS, and are the **only** place raw `household_members` lookups should appear outside of that file:
 
-```
-Alice (user_id = 'alice-uuid') queries household_members.
+| Function | Returns | Used in |
+|----------|---------|---------|
+| `get_my_household_ids()` | `setof uuid` | `household_members` SELECT policy |
+| `is_household_member(uuid)` | `boolean` | `households` + `chores` SELECT/INSERT policies |
+| `is_household_parent(uuid)` | `boolean` | all parent-only policies across three tables |
 
-Outer query:  SELECT * FROM household_members
-RLS filter:   WHERE household_id IN (
-                SELECT household_id              -- inner subquery
-                FROM household_members           -- same table, also RLS-filtered!
-                WHERE user_id = auth.uid()       -- = 'alice-uuid'
-              )
-```
-
-The inner subquery is itself filtered by the same RLS policy.  Alice's own row (`user_id = 'alice-uuid'`) satisfies `user_id = auth.uid()`, so it passes and returns her `household_id`.  The outer query then returns all rows for that household.
-
-**What can go wrong:** if Alice is concurrently removed from `household_members` while her query is in flight, the inner subquery returns nothing, and she sees zero rows.  This is the correct, fail-closed behaviour — a removed member should not see household data.
-
-**Performance note:** the explicit `WHERE user_id = auth.uid()` in the subquery lets Postgres use the `household_members_user_id_unique` index rather than scanning the full table.  Always keep that predicate; do not collapse it to a join without a matching index hint.
+**Rule:** never add a raw `SELECT ... FROM household_members WHERE user_id = auth.uid()` subquery inside a policy.  Call one of these helpers instead.
 
 ---
 
@@ -149,7 +140,7 @@ Supabase Realtime respects RLS: before broadcasting a change event to a subscrib
 - A user only receives `notifications` broadcasts addressed to them.
 - No extra Realtime-specific policies are needed — the existing SELECT policies are sufficient.
 
-> **Caveat for `household_members`:** the self-join SELECT policy is re-evaluated per broadcast row.  If a member is removed from the household between the event and the RLS check, they will not receive the broadcast.  This is the desired behaviour.
+> The `household_members` policies use the `SECURITY DEFINER` helper functions described above, so Realtime RLS evaluation is safe — no self-join cycle at broadcast time.
 
 ---
 
