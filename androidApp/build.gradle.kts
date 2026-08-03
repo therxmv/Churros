@@ -25,6 +25,11 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.androidx.core.splashscreen)
 
+    // Google Sign-In via Credential Manager (used by auth presentation layer in Phase 3)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+
     implementation(libs.compose.uiToolingPreview)
     debugImplementation(libs.compose.uiTooling)
 
