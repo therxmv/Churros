@@ -3,6 +3,7 @@ package com.therxmv.churros
 import android.app.Application
 import com.therxmv.churros.core.di.appModule
 import com.therxmv.churros.core.logger.initLogger
+import com.therxmv.churros.di.credentialsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -12,7 +13,7 @@ class ChurrosApplication : Application() {
         initLogger()
         startKoin {
             androidContext(this@ChurrosApplication)
-            modules(appModule)
+            modules(credentialsModule, appModule)
         }
     }
 }
