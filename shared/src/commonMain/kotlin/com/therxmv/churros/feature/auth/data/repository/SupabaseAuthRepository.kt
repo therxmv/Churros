@@ -123,6 +123,7 @@ class SupabaseAuthRepository(
         supabaseClient.auth.updateUser {
             password = newPassword
         }
+        Unit
     }.mapAuthError()
 
     // -------------------------------------------------------------------------
