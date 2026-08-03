@@ -3,6 +3,8 @@ package com.therxmv.churros.core.di
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
+import com.therxmv.churros.core.database.AppDatabase
+import com.therxmv.churros.core.database.getDatabaseBuilder
 import okio.Path.Companion.toPath
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
@@ -17,5 +19,10 @@ actual val platformModule: Module = module {
                 androidContext().filesDir.resolve(DATASTORE_FILENAME).absolutePath.toPath()
             },
         )
+    }
+    single<AppDatabase> {
+        getDatabaseBuilder(androidContext())
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .build()
     }
 }
