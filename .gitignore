@@ -54,6 +54,9 @@ kotlin-native/
 # Claude Code local settings (machine-specific permissions)
 .claude/settings.local.json
 
+# codebase-memory-mcp generated output
+docs/codemie/
+
 # Environment
 .env
 .env

@@ -59,6 +59,23 @@ See `shared/src/commonMain/kotlin/com/therxmv/churros/core/design/` for complete
 
 ---
 
+# Code Exploration (codebase-memory-mcp)
+
+The repo is indexed via [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp). Always use these tools **first** for any code exploration — they are faster and more precise than grep/glob.
+
+| Tool | When to use |
+|---|---|
+| `search_graph` | Find functions, classes, routes by name or natural language |
+| `get_code_snippet` | Read exact source for a known qualified name |
+| `trace_path` | Follow call chains (callers/callees, data flow, cross-service) |
+| `get_architecture` | Project structure, clusters, hotspots, layers |
+| `search_code` | Graph-augmented grep for text patterns |
+| `query_graph` | Complex Cypher queries for multi-hop patterns |
+
+Re-index after large changes: `mcp__codebase-memory-mcp__index_repository` with `repo_path` set to the project root and `name: Churros`.
+
+---
+
 # Development Commands
 
 ```bash
@@ -82,99 +99,29 @@ iOS: open `iosApp/iosApp.xcodeproj` in Xcode and run from there.
 
 ---
 
-# GitHub Issues
+# Ticket Creation
 
-All project tickets are GitHub Issues at `therxmv/Churros`.
+All ticket creation — single bugs, features, bulk milestone tickets, any type — goes through the BA specialist agent.
 
-## Creating an Issue (BA Automation)
+## When the user asks to create any ticket(s)
 
-When the user asks you to create a ticket:
+1. Read `.claude/ba_agent_template.md`
+2. Replace `{{REQUEST}}` with the user's exact request
+3. Spawn a general-purpose foreground agent with that prompt
 
-1. Infer `type`, `epic`, `priority` from the description and context in `docs/churros_tech_stack.md`.
-2. Draft an issue body using the template below.
-3. Create the issue, assigning it to the appropriate milestone:
-   ```bash
-   gh issue create --title "Title" --body "..." --label "type:feature,priority:medium,epic:chores" --milestone "Phase 1 — Foundation"
-   ```
-4. Confirm the issue number and URL.
+## When the user wants to implement a feature
 
-**Always apply at least a `type:` and `priority:` label.**
+1. `gh issue view <number>` to get ticket content
+2. Read `.claude/developer_agent_template.md`
+3. Replace `{{TICKET_CONTENT}}` with the issue output
+4. Spawn a general-purpose foreground agent with that prompt
 
-## Issue Body Template
-
-```
-## Description
-
-## Acceptance Criteria
-
-- [ ]
-
-## Design Notes
-
-## Technical Notes
-
-## Dependencies
-
-Blocked by: none
-Related: none
-```
-
-## Labels
-
-| Category | Values |
-|----------|--------|
-| `type:` | `type:feature`, `type:screen`, `type:infra`, `type:design`, `type:bug`, `type:research`, `type:doc`, `type:chore` |
-| `priority:` | `priority:critical`, `priority:high`, `priority:medium`, `priority:low` |
-| `epic:` | `epic:auth`, `epic:chores`, `epic:shopping`, `epic:notes`, `epic:calendar`, `epic:family`, `epic:settings`, `epic:infra` |
-
-## Type Reference
-
-| Type | Use for |
-|------|---------|
-| `type:feature` | New user-facing capability |
-| `type:screen` | Full screen or flow design/implementation |
-| `type:infra` | Project setup, CI/CD, tooling |
-| `type:design` | Design tokens, components, visual specs |
-| `type:bug` | Defects (once code exists) |
-| `type:research` | Spikes, investigations, decisions |
-| `type:doc` | Documentation updates |
-| `type:chore` | Refactor, cleanup, dependency updates |
-
-## Useful Commands
-
-```bash
-gh issue list                                    # view open issues
-gh issue view <number>                           # view issue details
-gh issue create --title "..." --body "..." --label "..."
-gh issue edit <number> --add-label "..." --remove-label "..."
-gh issue close <number>                          # mark done
-gh issue comment <number> --body "..."           # add comment
-```
-
----
-
-# Development Workflow
-
-## BA → Developer Pipeline
-
-When the user wants to implement a feature (any phrasing with implementation intent):
-
-### Step 1 — BA creates issue
-Create the GitHub issue per the GitHub Issues section. Note the issue number.
-
-### Step 2 — Spawn developer agent
-Read `.claude/developer_agent_template.md`. Replace `{{TICKET_CONTENT}}` with the output of `gh issue view <number>`. Use the result as the Agent tool prompt (general-purpose, foreground).
-
-### Step 3 — Developer agent runs
-The sub-agent asks clarifying questions directly to the user via AskUserQuestion, then implements. Returns an implementation summary.
-
-### Step 4 — Wrap up
-Post the implementation summary as a comment on the issue (`gh issue comment <number> --body "..."`). Close the issue when merged.
+After the developer agent returns its summary, post it as a comment: `gh issue comment <number> --body "..."`. Close the issue when merged.
 
 ## Trigger Detection
 
 | User intent | Action |
-|-------------|--------|
-| "create a ticket for X" | BA only — create issue, no implementation |
-| "create ticket and implement X" / "I want a feature that X" | Full pipeline |
-| "implement issue #NNN" | Developer only — `gh issue view NNN`, skip BA step |
+|---|---|
+| "create a ticket for X" / "create tickets for phase X" / any ticket creation | BA agent via `ba_agent_template.md` |
+| "implement issue #NNN" / "implement X" | Developer agent via `developer_agent_template.md` |
+| "create ticket and implement X" | BA agent first → then Developer agent |
