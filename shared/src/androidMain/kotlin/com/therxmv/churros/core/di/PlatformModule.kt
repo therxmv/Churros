@@ -5,6 +5,8 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import com.therxmv.churros.core.database.AppDatabase
 import com.therxmv.churros.core.database.getDatabaseBuilder
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.engine.cio.CIO
 import okio.Path.Companion.toPath
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
@@ -13,6 +15,7 @@ import org.koin.dsl.module
 private const val DATASTORE_FILENAME = "churros_session.preferences_pb"
 
 actual val platformModule: Module = module {
+    single<HttpClientEngine> { CIO.create() }
     single<DataStore<Preferences>> {
         PreferenceDataStoreFactory.createWithPath(
             produceFile = {
