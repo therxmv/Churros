@@ -4,11 +4,9 @@
 // Supabase Edge Function — sends a Firebase Cloud Messaging (FCM) push
 // notification to a single device token.
 //
-// Invoked by Postgres database webhooks (via pg_net / Supabase webhooks) when:
-//   • a notification row is inserted into public.notifications
+// Invoked by a Supabase Database Webhook on INSERT into public.notifications.
 //
-// Also called directly by the chore-deadline pg_cron job via a helper
-// function that inserts notification rows (which then trigger this webhook).
+// Notification types handled: chore_assigned, chore_edited
 //
 // Environment variables required (set via `supabase secrets set`):
 //   FIREBASE_SERVICE_ACCOUNT  — JSON string of the Firebase service account key
@@ -21,7 +19,7 @@
 //       "id": "...",
 //       "recipient_id": "...",
 //       "household_id": "...",
-//       "type": "chore_assigned" | "chore_deadline" | "family_member_added" | ...,
+//       "type": "chore_assigned" | "chore_edited",
 //       "payload": { ... },
 //       "is_read": false,
 //       "created_at": "..."
@@ -81,30 +79,10 @@ function buildNotificationContent(
         title: "New chore assigned",
         body: `You've been assigned: ${payload.chore_title ?? "a new chore"}`,
       };
-    case "chore_deadline":
-      return {
-        title: "Chore due today",
-        body: `Don't forget: ${payload.chore_title ?? "a chore"} is due today`,
-      };
-    case "family_member_added":
-      return {
-        title: "Welcome to the household!",
-        body: `You've been added to ${payload.household_name ?? "a household"}`,
-      };
-    case "chore_completed":
-      return {
-        title: "Chore completed",
-        body: `${payload.completed_by ?? "Someone"} completed: ${payload.chore_title ?? "a chore"}`,
-      };
     case "chore_edited":
       return {
         title: "Chore updated",
         body: `${payload.chore_title ?? "A chore"} has been updated`,
-      };
-    case "reward_request":
-      return {
-        title: "Reward request",
-        body: `${payload.requester_name ?? "Someone"} is requesting a reward`,
       };
     default:
       return {
