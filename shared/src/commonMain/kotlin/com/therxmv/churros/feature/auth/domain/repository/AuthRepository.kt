@@ -44,4 +44,22 @@ interface AuthRepository {
      * Signs out the current user and clears the local session.
      */
     suspend fun signOut(): Result<Unit>
+
+    /**
+     * Sends a password-reset email to [email].
+     * The email contains a magic link; following it opens the app via deep link (Phase 3).
+     */
+    suspend fun requestPasswordReset(email: String): Result<Unit>
+
+    /**
+     * Verifies the 6-digit OTP sent to [email] and establishes a new session.
+     * On success the user is authenticated and the returned [AuthUser] reflects the session.
+     */
+    suspend fun verifyEmailOtp(email: String, token: String): Result<AuthUser>
+
+    /**
+     * Updates the password of the currently authenticated user to [newPassword].
+     * Requires an active session (obtained after [verifyEmailOtp] or sign-in).
+     */
+    suspend fun setNewPassword(newPassword: String): Result<Unit>
 }
