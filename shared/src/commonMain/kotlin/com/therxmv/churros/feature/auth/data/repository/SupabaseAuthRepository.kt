@@ -5,6 +5,7 @@ import com.therxmv.churros.feature.auth.domain.model.AuthState
 import com.therxmv.churros.feature.auth.domain.model.AuthUser
 import com.therxmv.churros.feature.auth.domain.repository.AuthRepository
 import io.github.jan.supabase.SupabaseClient
+import io.github.jan.supabase.auth.OtpType
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.Google
 import io.github.jan.supabase.auth.providers.builtin.Email
@@ -102,6 +103,28 @@ class SupabaseAuthRepository(
         supabaseClient.auth.signOut()
     }.mapAuthError()
 
+    override suspend fun requestPasswordReset(email: String): Result<Unit> = runCatching {
+        supabaseClient.auth.resetPasswordForEmail(email = email)
+    }.mapAuthError()
+
+    override suspend fun verifyEmailOtp(email: String, token: String): Result<AuthUser> =
+        runCatching {
+            supabaseClient.auth.verifyEmailOtp(
+                type = OtpType.Email.EMAIL,
+                email = email,
+                token = token,
+            )
+            supabaseClient.auth.currentUserOrNull()?.toDomain()
+                // TODO(Phase 3 — Localization): localize error message
+                ?: throw AuthError.Unknown(message = "User not found after OTP verification")
+        }.mapOtpAuthError()
+
+    override suspend fun setNewPassword(newPassword: String): Result<Unit> = runCatching {
+        supabaseClient.auth.updateUser {
+            password = newPassword
+        }
+    }.mapAuthError()
+
     // -------------------------------------------------------------------------
     // Private helpers
     // -------------------------------------------------------------------------
@@ -132,8 +155,35 @@ class SupabaseAuthRepository(
         else -> AuthError.Unknown(message = message, cause = this)
     }
 
+    /**
+     * Maps Supabase / network exceptions that are specific to OTP verification.
+     *
+     * Supabase signals OTP errors via:
+     *  - 401 with "expired" in the message → [AuthError.ExpiredLink]
+     *  - 401 without "expired"             → [AuthError.InvalidOtp]
+     *  - 422                               → [AuthError.InvalidOtp] (already-used token)
+     */
+    private fun Throwable.toOtpAuthError(): AuthError = when {
+        this is AuthError -> this
+        this is HttpRequestException -> AuthError.NetworkError
+        this is RestException && statusCode == 401 -> {
+            if (message?.lowercase()?.contains("expired") == true) {
+                AuthError.ExpiredLink
+            } else {
+                AuthError.InvalidOtp
+            }
+        }
+        this is RestException && statusCode == 422 -> AuthError.InvalidOtp
+        else -> AuthError.Unknown(message = message, cause = this)
+    }
+
     private fun <T> Result<T>.mapAuthError(): Result<T> = fold(
         onSuccess = { Result.success(it) },
         onFailure = { Result.failure(it.toAuthError()) },
+    )
+
+    private fun <T> Result<T>.mapOtpAuthError(): Result<T> = fold(
+        onSuccess = { Result.success(it) },
+        onFailure = { Result.failure(it.toOtpAuthError()) },
     )
 }
