@@ -18,7 +18,8 @@ supabase/
     ├── 04_household_members.sql
     ├── 05_triggers.sql
     ├── 06_chores.sql
-    └── 07_notifications.sql
+    ├── 07_notifications.sql
+    └── 08_storage.sql
 ```
 
 ---
@@ -59,6 +60,7 @@ Schema files are prefixed with a two-digit number so they can be applied in a de
 | `05_triggers.sql` | `handle_new_user` trigger — creates a profile on sign-up |
 | `06_chores.sql` | `chores` table and `chore_priority` enum |
 | `07_notifications.sql` | `notifications` table and `notification_type` enum |
+| `08_storage.sql` | Storage buckets (`avatars`, `family-photos`) and their RLS policies |
 
 **Rule:** later files may reference earlier ones (e.g. `chores` FK → `households`), but never the reverse.  When adding a new table, pick the next available number.
 
@@ -141,6 +143,52 @@ Supabase Realtime respects RLS: before broadcasting a change event to a subscrib
 - No extra Realtime-specific policies are needed — the existing SELECT policies are sufficient.
 
 > The `household_members` policies use the `SECURITY DEFINER` helper functions described above, so Realtime RLS evaluation is safe — no self-join cycle at broadcast time.
+
+---
+
+## Storage
+
+Supabase Storage is used for binary assets. Bucket definitions and RLS policies are in `08_storage.sql`.
+
+### Buckets
+
+| Bucket | Public | Purpose |
+|--------|--------|---------|
+| `avatars` | No | User profile pictures |
+| `family-photos` | No | Household cover photo |
+
+### Object path conventions
+
+| Bucket | Path pattern | Example |
+|--------|-------------|---------|
+| `avatars` | `avatars/<user_id>/<filename>` | `avatars/a1b2c3d4-.../photo.jpg` |
+| `family-photos` | `family-photos/<household_id>/<filename>` | `family-photos/b2c3d4e5-.../cover.jpg` |
+
+The first path segment encodes the owner identity so RLS policies can extract it via `(storage.foldername(name))[1]` without an extra database lookup.
+
+### Storage RLS policies
+
+Storage policies live in `storage.objects` (not `public.*`), but they reuse the same `SECURITY DEFINER` helper functions from `04_household_members.sql`.
+
+#### avatars (private bucket)
+
+| Operation | Who | Condition |
+|-----------|-----|-----------|
+| SELECT | Authenticated user | `bucket_id = 'avatars'` |
+| INSERT | Authenticated user | First path segment = `auth.uid()` |
+| UPDATE | Authenticated user | First path segment = `auth.uid()` |
+| DELETE | Authenticated user | First path segment = `auth.uid()` |
+
+#### family-photos (private bucket)
+
+| Operation | Who | Condition |
+|-----------|-----|-----------|
+| SELECT | Authenticated member | `is_household_member(<household_id>)` |
+| INSERT | Authenticated parent | `is_household_parent(<household_id>)` |
+| UPDATE | Authenticated parent | `is_household_parent(<household_id>)` |
+| DELETE | Authenticated parent | `is_household_parent(<household_id>)` |
+
+Re-upload (upsert) is supported: the INSERT + UPDATE policies together allow a parent to silently replace the existing cover photo.
 
 ---
 
