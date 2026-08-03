@@ -11,6 +11,9 @@ supabase/
 ├── config.toml          — Local dev stack configuration (auth providers, ports, etc.)
 ├── AUTH_SETUP.md        — Manual steps for Google OAuth, email templates, redirect URLs
 ├── README.md            — This file
+├── functions/
+│   └── send-push-notification/
+│       └── index.ts     — Edge Function: FCM v1 push delivery on notifications INSERT
 └── schemas/             — SQL schema files applied in numbered order
     ├── 01_types.sql
     ├── 02_profiles.sql
@@ -19,7 +22,8 @@ supabase/
     ├── 05_triggers.sql
     ├── 06_chores.sql
     ├── 07_notifications.sql
-    └── 08_storage.sql
+    ├── 08_storage.sql
+    └── 09_push_notifications.sql
 ```
 
 ---
@@ -61,6 +65,7 @@ Schema files are prefixed with a two-digit number so they can be applied in a de
 | `06_chores.sql` | `chores` table and `chore_priority` enum |
 | `07_notifications.sql` | `notifications` table and `notification_type` enum |
 | `08_storage.sql` | Storage buckets (`avatars`, `family-photos`) and their RLS policies |
+| `09_push_notifications.sql` | Extends `notification_type` enum; trigger functions for chore assignment and household member addition; pg_cron deadline reminder job |
 
 **Rule:** later files may reference earlier ones (e.g. `chores` FK → `households`), but never the reverse.  When adding a new table, pick the next available number.
 
@@ -189,6 +194,83 @@ Storage policies live in `storage.objects` (not `public.*`), but they reuse the 
 | DELETE | Authenticated parent | `is_household_parent(<household_id>)` |
 
 Re-upload (upsert) is supported: the INSERT + UPDATE policies together allow a parent to silently replace the existing cover photo.
+
+---
+
+## Push Notifications
+
+Push notifications are delivered via Firebase Cloud Messaging (FCM) v1.  The pipeline is:
+
+```
+DB event (trigger)
+    → INSERT into public.notifications
+        → Supabase Database Webhook
+            → send-push-notification Edge Function
+                → FCM v1 HTTP API
+                    → device
+```
+
+### Edge Function
+
+`functions/send-push-notification/index.ts` is a Deno-based Supabase Edge Function.
+
+- Triggered by a Supabase Database Webhook on `INSERT` into `public.notifications`.
+- Reads the new notification row from the webhook payload.
+- Fetches the recipient's `push_token` from `public.profiles` using the service-role client.
+- Builds a human-readable title/body from the notification `type` and `payload`.
+- Authenticates with Google OAuth2 using the Firebase service account (RS256 JWT → access token).
+- Calls `POST https://fcm.googleapis.com/v1/projects/<project_id>/messages:send`.
+
+Deploy:
+
+```bash
+supabase functions deploy send-push-notification
+```
+
+### Firebase service account secret
+
+The Edge Function reads the Firebase service account JSON from the `FIREBASE_SERVICE_ACCOUNT` environment variable.  Set it once per environment:
+
+```bash
+# Never commit the key file — set it as a secret
+supabase secrets set FIREBASE_SERVICE_ACCOUNT="$(cat path/to/firebase-service-account.json)"
+
+# Verify
+supabase secrets list
+```
+
+The service account needs the `cloudmessaging.messages.create` IAM permission (bundled in the "Firebase Cloud Messaging Admin SDK Service Agent" role).  Enable the **Firebase Cloud Messaging API** in Google Cloud Console for the project.
+
+### Database Webhook
+
+Wire the Edge Function to the `notifications` table in the Supabase Dashboard:
+
+> **Database → Webhooks → Create a new hook**
+
+| Setting | Value |
+|---------|-------|
+| Name | `notify-on-insert` |
+| Table | `public.notifications` |
+| Events | INSERT |
+| Type | Supabase Edge Functions |
+| Edge Function | `send-push-notification` |
+
+### Triggers (defined in `09_push_notifications.sql`)
+
+| Trigger | Table | Event | Notification type |
+|---------|-------|-------|-------------------|
+| `on_chore_assigned` | `public.chores` | AFTER INSERT or UPDATE OF `assignee_id` | `chore_assigned` |
+| `on_household_member_added` | `public.household_members` | AFTER INSERT | `family_member_added` |
+
+Both trigger functions run as `SECURITY DEFINER` and insert into `public.notifications`.
+
+### pg_cron — chore deadline reminders
+
+A daily `pg_cron` job (`chore-deadline-reminders`) runs at **08:00 UTC** and inserts a `chore_deadline` notification for every incomplete chore due on the current calendar day.  An idempotency guard prevents duplicate notifications if the job runs more than once in the same day.
+
+The job is scheduled automatically when `09_push_notifications.sql` is applied (requires the `pg_cron` extension to be enabled).
+
+Enable pg_cron in the Supabase Dashboard: **Database → Extensions → pg_cron**.
 
 ---
 
