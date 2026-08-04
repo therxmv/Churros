@@ -58,4 +58,66 @@
 
     <!-- Member card -->
     <string name="member_tasks_completed">%1$d завдань виконано</string>
+
+    <!-- Onboarding slides -->
+    <string name="onboarding_slide1_title">Ласкаво просимо до Churros</string>
+    <string name="onboarding_slide1_body">Спільний дім починається зі спільної відповідальності.</string>
+    <string name="onboarding_slide2_title">Ділись справами, а не стресом</string>
+    <string name="onboarding_slide2_body">Призначайте завдання, відстежуйте прогрес і святкуйте разом.</string>
+    <string name="onboarding_slide3_title">Все, що потрібно дому</string>
+    <string name="onboarding_slide3_body">Від справ до покупок — тримайте весь дім у синхроні.</string>
+
+    <!-- Onboarding CTAs -->
+    <string name="onboarding_cta_get_started">Почати</string>
+    <string name="onboarding_cta_next">Далі</string>
+    <string name="onboarding_cta_skip">Пропустити</string>
+
+    <!-- Family screen -->
+    <string name="family_title">Родина</string>
+    <string name="family_section_members">Учасники</string>
+    <string name="family_section_permissions">Дозволи</string>
+    <string name="family_invite_title">Запросити члена родини</string>
+    <string name="family_invite_subtitle">Поділіться цим кодом, щоб запросити когось до вашого дому</string>
+    <string name="family_invite_copy_code">Скопіювати код</string>
+    <string name="family_invite_code_copied">Код скопійовано</string>
+    <string name="family_invite_email_label">Адреса ел. пошти</string>
+    <string name="family_invite_role_label">Роль</string>
+    <string name="family_invite_send">Надіслати запрошення</string>
+    <string name="family_permission_requires_approval">Потребує схвалення батьків</string>
+    <string name="family_permission_requires_approval_desc">Діти мають чекати перевірки перед отриманням балів.</string>
+    <string name="family_permission_can_assign">Може призначати власні справи</string>
+    <string name="family_permission_can_assign_desc">Дозволити дітям пропонувати та починати нові завдання.</string>
+    <string name="family_permission_can_claim_rewards">Може отримувати нагороди напряму</string>
+    <string name="family_permission_can_claim_rewards_desc">Дозволити дітям отримувати нагороди без схвалення батьків.</string>
+    <string name="family_household_profile_title">Профіль дому</string>
+    <string name="family_manage_title">Керування родиною</string>
+    <string name="family_add_member">Додати нового учасника</string>
+    <string name="family_manage_permissions">Керувати дозволами</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Налаштування</string>
+    <string name="settings_section_profile">Профіль</string>
+    <string name="settings_section_preferences">Параметри</string>
+    <string name="settings_section_notifications">Сповіщення</string>
+    <string name="settings_label_language">Мова</string>
+    <string name="settings_language_english">Англійська</string>
+    <string name="settings_language_ukrainian">Українська</string>
+    <string name="settings_label_dark_mode">Темна тема</string>
+    <string name="settings_label_push_notifications">Push-сповіщення</string>
+    <string name="settings_label_chore_reminders">Нагадування про справи</string>
+    <string name="settings_label_family_updates">Оновлення родини</string>
+    <string name="settings_action_sign_out">Вийти</string>
+    <string name="settings_action_edit_profile">Редагувати профіль</string>
+
+    <!-- Notifications screen -->
+    <string name="notifications_title">Сповіщення</string>
+    <string name="notifications_section_recent">Нещодавні</string>
+    <string name="notifications_section_earlier">Раніше</string>
+    <string name="notifications_empty_title">Поки що немає сповіщень</string>
+    <string name="notifications_empty_subtitle">У вас все в порядку!</string>
+    <string name="notification_type_reward_request">Запит на нагороду</string>
+    <string name="notification_type_chore_assigned">Призначено справу</string>
+    <string name="notification_type_chore_completed">Справу виконано</string>
+    <string name="notification_type_shopping_list">Список покупок оновлено</string>
+    <string name="notification_type_daily_goal">Щоденна ціль</string>
 </resources>

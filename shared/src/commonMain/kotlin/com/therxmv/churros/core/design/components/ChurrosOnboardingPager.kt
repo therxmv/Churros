@@ -26,6 +26,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.onboarding_page_indicator_desc
+import churros.shared.generated.resources.onboarding_slide1_body
+import churros.shared.generated.resources.onboarding_slide1_title
+import churros.shared.generated.resources.onboarding_slide2_title
+import churros.shared.generated.resources.onboarding_slide3_title
 import com.therxmv.churros.core.design.ChurrosMotion
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
@@ -114,12 +118,12 @@ fun OnboardingPagerPreviewContent() {
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "Welcome to Churros",
+                        text = stringResource(Res.string.onboarding_slide1_title),
                         style = MaterialTheme.typography.headlineLarge,
                         color = MaterialTheme.colorScheme.onBackground,
                     )
                     Text(
-                        text = "A shared home starts with shared responsibilities.",
+                        text = stringResource(Res.string.onboarding_slide1_body),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(top = ChurrosSpacing.S),
@@ -135,7 +139,7 @@ fun OnboardingPagerPreviewContent() {
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = "Share chores, not the stress",
+                    text = stringResource(Res.string.onboarding_slide2_title),
                     style = MaterialTheme.typography.headlineLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
@@ -149,7 +153,7 @@ fun OnboardingPagerPreviewContent() {
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = "Everything your home needs",
+                    text = stringResource(Res.string.onboarding_slide3_title),
                     style = MaterialTheme.typography.headlineLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                 )

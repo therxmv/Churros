@@ -135,12 +135,10 @@ fun defaultChoreCategories(): List<String> = listOf(
 @ChurrosPreview
 @Composable
 fun CategoryPickerPreviewContent() {
-    var selected by remember { mutableStateOf<String?>("Kitchen") }
-    val categories = listOf("Kitchen", "Garden", "Cleaning", "Pets", "+ Custom")
+    var selected by remember { mutableStateOf<String?>(null) }
     ChurrosCategoryPicker(
         selectedCategory = selected,
         onCategorySelected = { selected = it },
-        categories = categories,
         modifier = Modifier.padding(ChurrosSpacing.M),
     )
 }

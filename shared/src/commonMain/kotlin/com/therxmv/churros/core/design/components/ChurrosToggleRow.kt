@@ -17,10 +17,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewWrapper
+import churros.shared.generated.resources.Res
+import churros.shared.generated.resources.family_permission_can_assign
+import churros.shared.generated.resources.family_permission_can_assign_desc
+import churros.shared.generated.resources.family_permission_requires_approval
+import churros.shared.generated.resources.family_permission_requires_approval_desc
+import churros.shared.generated.resources.settings_label_dark_mode
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
 import com.therxmv.churros.core.design.churrosColors
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Row with a label, optional description, and a trailing [Switch].
@@ -87,19 +94,19 @@ fun ToggleRowPreviewContent() {
     var assignChecked by remember { mutableStateOf(true) }
     Column(modifier = Modifier.padding(ChurrosSpacing.M)) {
         ChurrosToggleRow(
-            label = "Requires Parent Approval",
-            description = "Kids must wait for review before getting points.",
+            label = stringResource(Res.string.family_permission_requires_approval),
+            description = stringResource(Res.string.family_permission_requires_approval_desc),
             checked = approvalChecked,
             onCheckedChange = { approvalChecked = it },
         )
         ChurrosToggleRow(
-            label = "Can Assign Own Chores",
-            description = "Allow kids to suggest and start new tasks.",
+            label = stringResource(Res.string.family_permission_can_assign),
+            description = stringResource(Res.string.family_permission_can_assign_desc),
             checked = assignChecked,
             onCheckedChange = { assignChecked = it },
         )
         ChurrosToggleRow(
-            label = "Dark Mode",
+            label = stringResource(Res.string.settings_label_dark_mode),
             checked = false,
             onCheckedChange = {},
         )

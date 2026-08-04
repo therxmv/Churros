@@ -162,4 +162,66 @@
 
     <!-- Member card -->
     <string name="member_tasks_completed">%1$d tasks completed</string>
+
+    <!-- Onboarding slides -->
+    <string name="onboarding_slide1_title">Welcome to Churros</string>
+    <string name="onboarding_slide1_body">A shared home starts with shared responsibilities.</string>
+    <string name="onboarding_slide2_title">Share chores, not the stress</string>
+    <string name="onboarding_slide2_body">Assign tasks, track progress, and celebrate wins together.</string>
+    <string name="onboarding_slide3_title">Everything your home needs</string>
+    <string name="onboarding_slide3_body">From chores to shopping, keep your whole household in sync.</string>
+
+    <!-- Onboarding CTAs -->
+    <string name="onboarding_cta_get_started">Get Started</string>
+    <string name="onboarding_cta_next">Next</string>
+    <string name="onboarding_cta_skip">Skip</string>
+
+    <!-- Family screen -->
+    <string name="family_title">Family</string>
+    <string name="family_section_members">Members</string>
+    <string name="family_section_permissions">Permissions</string>
+    <string name="family_invite_title">Invite a Family Member</string>
+    <string name="family_invite_subtitle">Share this code to invite someone to your household</string>
+    <string name="family_invite_copy_code">Copy Code</string>
+    <string name="family_invite_code_copied">Code copied to clipboard</string>
+    <string name="family_invite_email_label">Email address</string>
+    <string name="family_invite_role_label">Role</string>
+    <string name="family_invite_send">Send Invite</string>
+    <string name="family_permission_requires_approval">Requires Parent Approval</string>
+    <string name="family_permission_requires_approval_desc">Kids must wait for review before getting points.</string>
+    <string name="family_permission_can_assign">Can Assign Own Chores</string>
+    <string name="family_permission_can_assign_desc">Allow kids to suggest and start new tasks.</string>
+    <string name="family_permission_can_claim_rewards">Can Claim Rewards Directly</string>
+    <string name="family_permission_can_claim_rewards_desc">Allow kids to redeem rewards without parent approval.</string>
+    <string name="family_household_profile_title">Household Profile</string>
+    <string name="family_manage_title">Manage Family</string>
+    <string name="family_add_member">Add New Member</string>
+    <string name="family_manage_permissions">Manage Permissions</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_profile">Profile</string>
+    <string name="settings_section_preferences">Preferences</string>
+    <string name="settings_section_notifications">Notifications</string>
+    <string name="settings_label_language">Language</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_ukrainian">Ukrainian</string>
+    <string name="settings_label_dark_mode">Dark Mode</string>
+    <string name="settings_label_push_notifications">Push Notifications</string>
+    <string name="settings_label_chore_reminders">Chore Reminders</string>
+    <string name="settings_label_family_updates">Family Updates</string>
+    <string name="settings_action_sign_out">Sign Out</string>
+    <string name="settings_action_edit_profile">Edit Profile</string>
+
+    <!-- Notifications screen -->
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_section_recent">Recent</string>
+    <string name="notifications_section_earlier">Earlier</string>
+    <string name="notifications_empty_title">No notifications yet</string>
+    <string name="notifications_empty_subtitle">You\'re all caught up!</string>
+    <string name="notification_type_reward_request">Reward Request</string>
+    <string name="notification_type_chore_assigned">Chore Assigned</string>
+    <string name="notification_type_chore_completed">Chore Completed</string>
+    <string name="notification_type_shopping_list">Shopping List Updated</string>
+    <string name="notification_type_daily_goal">Daily Goal</string>
 </resources>
