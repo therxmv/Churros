@@ -10,4 +10,52 @@
     <string name="error_auth_user_not_found">Акаунт не знайдено. Спробуйте ще раз.</string>
     <string name="error_auth_apple_not_available">Вхід через Apple ще недоступний. Оберіть інший спосіб.</string>
     <string name="error_auth_unknown">Щось пішло не так. Спробуйте ще раз.</string>
+
+    <!-- Chore categories (Phase 3 additions) -->
+    <string name="chore_category_kitchen">Кухня</string>
+    <string name="chore_category_garden">Сад</string>
+    <string name="chore_category_pets">Тварини</string>
+    <string name="chore_category_custom">+ Власна</string>
+
+    <!-- Chore filters (Phase 3 additions) -->
+    <string name="chores_filter_tomorrow">Завтра</string>
+    <string name="chores_filter_done">Виконано</string>
+
+    <!-- Repeat selector -->
+    <string name="repeat_none">Ніколи</string>
+    <string name="repeat_daily">Щодня</string>
+    <string name="repeat_weekly">Щотижня</string>
+    <string name="repeat_custom">Власне</string>
+
+    <!-- Priority selector -->
+    <string name="priority_low">Низький</string>
+    <string name="priority_medium">Середній</string>
+    <string name="priority_high">Високий</string>
+
+    <!-- Role badges -->
+    <string name="role_badge_parent">Батько/Мама</string>
+    <string name="role_badge_kid">Дитина</string>
+    <string name="role_badge_caregiver">Опікун</string>
+
+    <!-- Notification actions -->
+    <string name="notification_action_approve">Схвалити</string>
+    <string name="notification_action_decline">Відхилити</string>
+    <string name="notification_action_approve_desc">Схвалити сповіщення</string>
+    <string name="notification_action_decline_desc">Відхилити сповіщення</string>
+
+    <!-- OTP field -->
+    <string name="otp_field_content_desc">Поле одноразового коду</string>
+
+    <!-- Progress ring -->
+    <string name="progress_ring_content_desc">%1$d%% виконано</string>
+
+    <!-- Onboarding pager -->
+    <string name="onboarding_page_indicator_desc">Сторінка %1$d з %2$d</string>
+
+    <!-- Date / time picker -->
+    <string name="date_picker_confirm">OK</string>
+    <string name="date_picker_dismiss">Скасувати</string>
+
+    <!-- Member card -->
+    <string name="member_tasks_completed">%1$d завдань виконано</string>
 </resources>
