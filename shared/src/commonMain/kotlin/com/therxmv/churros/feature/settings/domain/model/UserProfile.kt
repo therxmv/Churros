@@ -18,9 +18,6 @@ import kotlinx.datetime.Instant
  * [createdAt] and [pushToken] are null when the profile is built solely from auth metadata
  * (e.g. inside [com.therxmv.churros.feature.auth.data.repository.SupabaseAuthRepository]
  * without a `public.profiles` fetch).
- *
- * This model replaces the previously separate `AuthUser` (auth feature) and `FamilyMember`
- * (family feature) to avoid redundant profile representations.
  */
 data class UserProfile(
     /** Supabase auth user UUID. Also the primary key in `public.profiles`. */
