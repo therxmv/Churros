@@ -1,7 +1,7 @@
 package com.therxmv.churros.feature.auth.domain.repository
 
 import com.therxmv.churros.feature.auth.domain.model.AuthState
-import com.therxmv.churros.feature.auth.domain.model.AuthUser
+import com.therxmv.churros.feature.settings.domain.model.UserProfile
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
@@ -14,31 +14,35 @@ interface AuthRepository {
 
     /**
      * Returns the currently signed-in user, or `null` when unauthenticated.
+     *
+     * The returned [UserProfile] is built from auth metadata only; profile-specific fields
+     * ([UserProfile.pushToken], [UserProfile.createdAt], [UserProfile.notificationPreferences],
+     * household fields) are set to their defaults. Call [GetProfileUseCase] for the full profile.
      */
-    suspend fun getCurrentUser(): AuthUser?
+    suspend fun getCurrentUser(): UserProfile?
 
     /**
      * Signs in using email and password credentials.
      */
-    suspend fun signInWithEmail(email: String, password: String): Result<AuthUser>
+    suspend fun signInWithEmail(email: String, password: String): Result<UserProfile>
 
     /**
      * Creates a new account with the given email and password.
      * Email confirmation is required when enabled in the Supabase project.
      */
-    suspend fun signUpWithEmail(email: String, password: String): Result<AuthUser>
+    suspend fun signUpWithEmail(email: String, password: String): Result<UserProfile>
 
     /**
      * Signs in using a Google ID token obtained from Android Credential Manager.
      * The token acquisition itself is platform-specific and handled at the presentation layer.
      */
-    suspend fun signInWithGoogle(idToken: String): Result<AuthUser>
+    suspend fun signInWithGoogle(idToken: String): Result<UserProfile>
 
     /**
      * Signs in using an Apple ID token.
      * TODO: Implement in the iOS stabilisation phase.
      */
-    suspend fun signInWithApple(idToken: String): Result<AuthUser>
+    suspend fun signInWithApple(idToken: String): Result<UserProfile>
 
     /**
      * Signs out the current user and clears the local session.
@@ -53,9 +57,9 @@ interface AuthRepository {
 
     /**
      * Verifies the 6-digit OTP sent to [email] and establishes a new session.
-     * On success the user is authenticated and the returned [AuthUser] reflects the session.
+     * On success the user is authenticated and the returned [UserProfile] reflects the session.
      */
-    suspend fun verifyEmailOtp(email: String, token: String): Result<AuthUser>
+    suspend fun verifyEmailOtp(email: String, token: String): Result<UserProfile>
 
     /**
      * Updates the password of the currently authenticated user to [newPassword].

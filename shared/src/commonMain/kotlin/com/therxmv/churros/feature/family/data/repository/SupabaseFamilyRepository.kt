@@ -9,8 +9,8 @@ import com.therxmv.churros.feature.family.data.local.FamilyMemberDao
 import com.therxmv.churros.feature.family.data.local.HouseholdDao
 import com.therxmv.churros.feature.family.data.local.toDomain
 import com.therxmv.churros.feature.family.domain.model.FamilyError
-import com.therxmv.churros.feature.family.domain.model.FamilyMember
 import com.therxmv.churros.feature.family.domain.model.Household
+import com.therxmv.churros.feature.family.domain.model.MemberProfile
 import com.therxmv.churros.feature.family.domain.repository.FamilyRepository
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
@@ -105,7 +105,7 @@ class SupabaseFamilyRepository(
     // observeMembers
     // ---------------------------------------------------------------------------
 
-    override fun observeMembers(): Flow<List<FamilyMember>> = channelFlow {
+    override fun observeMembers(): Flow<List<MemberProfile>> = channelFlow {
         val householdId = getHouseholdId()
 
         // 1. Prime the Room cache.

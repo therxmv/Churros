@@ -1,7 +1,7 @@
 package com.therxmv.churros.feature.family.domain.repository
 
-import com.therxmv.churros.feature.family.domain.model.FamilyMember
 import com.therxmv.churros.feature.family.domain.model.Household
+import com.therxmv.churros.feature.family.domain.model.MemberProfile
 import kotlinx.coroutines.flow.Flow
 
 interface FamilyRepository {
@@ -18,15 +18,7 @@ interface FamilyRepository {
      */
     fun observeHousehold(): Flow<Household?>
 
-    /**
-     * Returns a cold [Flow] that emits all members in the authenticated user's household.
-     * Room is the source of truth; Realtime events from Supabase keep it in sync.
-     *
-     * Each [FamilyMember] includes denormalised profile data (display name, avatar).
-     *
-     * The flow's coroutine scope manages the Realtime channel lifecycle.
-     */
-    fun observeMembers(): Flow<List<FamilyMember>>
+    fun observeMembers(): Flow<List<MemberProfile>>
 
     /**
      * Updates the household's mutable fields ([name], [address]).

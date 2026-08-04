@@ -1,7 +1,7 @@
 package com.therxmv.churros.feature.family.data.dto
 
 import com.therxmv.churros.feature.family.data.local.FamilyMemberEntity
-import com.therxmv.churros.feature.family.domain.model.FamilyMember
+import com.therxmv.churros.feature.family.domain.model.MemberProfile
 import com.therxmv.churros.feature.family.domain.model.toHouseholdRole
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
@@ -36,16 +36,12 @@ data class ProfileDto(
 // Mapping helpers
 // ---------------------------------------------------------------------------
 
-/**
- * Falls back to [userId] as the display name when the profiles join is absent
- * (e.g., when the profile row was deleted or the join is not included in the query).
- */
-internal fun FamilyMemberDto.toDomain(): FamilyMember = FamilyMember(
-    userId = userId,
-    householdId = householdId,
-    role = role.toHouseholdRole(),
+internal fun FamilyMemberDto.toDomain(): MemberProfile = MemberProfile(
+    id = userId,
     displayName = profiles?.displayName ?: userId,
     avatarUrl = profiles?.avatarUrl,
+    householdId = householdId,
+    householdRole = role.toHouseholdRole(),
     joinedAt = Instant.parse(joinedAt),
 )
 

@@ -2,7 +2,7 @@ package com.therxmv.churros.feature.family.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.therxmv.churros.feature.family.domain.model.FamilyMember
+import com.therxmv.churros.feature.family.domain.model.MemberProfile
 import com.therxmv.churros.feature.family.domain.model.toHouseholdRole
 import kotlinx.datetime.Instant
 
@@ -30,11 +30,11 @@ data class FamilyMemberEntity(
 // Mapping helper
 // ---------------------------------------------------------------------------
 
-internal fun FamilyMemberEntity.toDomain(): FamilyMember = FamilyMember(
-    userId = userId,
-    householdId = householdId,
-    role = role.toHouseholdRole(),
+internal fun FamilyMemberEntity.toDomain(): MemberProfile = MemberProfile(
+    id = userId,
     displayName = displayName,
     avatarUrl = avatarUrl,
+    householdId = householdId,
+    householdRole = role.toHouseholdRole(),
     joinedAt = Instant.fromEpochMilliseconds(joinedAt),
 )
