@@ -7,14 +7,14 @@ import androidx.compose.ui.unit.dp
 
 val churrosShapes = Shapes(
     extraSmall = RoundedCornerShape(8.dp),
-    small      = RoundedCornerShape(16.dp),  // buttons
+    small      = RoundedCornerShape(50.dp),  // buttons — full pill
     medium     = RoundedCornerShape(18.dp),  // sticky notes
     large      = RoundedCornerShape(20.dp),  // cards
     extraLarge = RoundedCornerShape(28.dp),  // bottom sheets / dialogs
 )
 
 object ChurrosShapes {
-    val button      = RoundedCornerShape(16.dp)
+    val button      = RoundedCornerShape(50.dp)
     val card        = RoundedCornerShape(20.dp)
     val stickyNote  = RoundedCornerShape(18.dp)
     val bottomSheet = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)

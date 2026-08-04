@@ -45,7 +45,7 @@ feature/[name]/
 # Design System Essentials
 
 **Brand Colors:**
-- Primary: Honey `#E9B44C`
+- Primary: Honey `#F5A623`
 - Dark: Espresso `#4E342E`
 - Background: `#FFF9F1` (warm cream, never pure white/gray)
 
