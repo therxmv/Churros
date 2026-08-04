@@ -20,4 +20,5 @@ actual fun getDatabaseBuilder(ctx: Any): RoomDatabase.Builder<AppDatabase> {
         error = null,
     )!!.path!! + "/$DB_FILE_NAME"
     return Room.databaseBuilder<AppDatabase>(name = dbFilePath)
+        .fallbackToDestructiveMigration(true)
 }

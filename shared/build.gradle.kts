@@ -59,6 +59,7 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
             implementation(libs.datastore.preferences.core)
             implementation(project.dependencies.platform(libs.supabase.bom))
             implementation(libs.supabase.auth)
