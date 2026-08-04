@@ -15,7 +15,9 @@ import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.role_badge_caregiver
 import churros.shared.generated.resources.role_badge_kid
 import churros.shared.generated.resources.role_badge_parent
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
 import com.therxmv.churros.core.design.churrosColors
 import com.therxmv.churros.feature.family.domain.model.HouseholdRole
@@ -95,6 +97,7 @@ private fun roleBadgeColors(role: ChurrosRoleType): Pair<Color, Color> {
     }
 }
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun RoleBadgePreviewContent() {

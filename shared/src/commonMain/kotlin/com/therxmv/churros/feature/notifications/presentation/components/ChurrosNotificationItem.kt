@@ -23,7 +23,9 @@ import churros.shared.generated.resources.notification_action_approve_desc
 import churros.shared.generated.resources.notification_action_decline
 import churros.shared.generated.resources.notification_action_decline_desc
 import coil3.compose.AsyncImage
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosShapes
 import com.therxmv.churros.core.design.ChurrosSpacing
 import com.therxmv.churros.core.design.churrosColors
@@ -136,6 +138,7 @@ private fun NotificationActions(
 
 // ── Previews ────────────────────────────────────────────────────────────────────
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun NotificationItemActionablePreview() {
@@ -150,6 +153,7 @@ fun NotificationItemActionablePreview() {
     }
 }
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun NotificationItemInfoPreview() {

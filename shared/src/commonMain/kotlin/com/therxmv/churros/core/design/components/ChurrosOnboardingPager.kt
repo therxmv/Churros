@@ -27,7 +27,9 @@ import androidx.compose.ui.unit.dp
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.onboarding_page_indicator_desc
 import com.therxmv.churros.core.design.ChurrosMotion
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
 import org.jetbrains.compose.resources.stringResource
 
@@ -98,6 +100,7 @@ fun ChurrosOnboardingPager(
     }
 }
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun OnboardingPagerPreviewContent() {

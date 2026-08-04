@@ -28,7 +28,9 @@ import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.chores_field_due_date
 import churros.shared.generated.resources.date_picker_confirm
 import churros.shared.generated.resources.date_picker_dismiss
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosShapes
 import com.therxmv.churros.core.design.ChurrosSpacing
 import com.therxmv.churros.core.design.churrosColors
@@ -184,6 +186,7 @@ private fun ChurrosPickerField(
     }
 }
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun DateTimePickerPreviewContent() {

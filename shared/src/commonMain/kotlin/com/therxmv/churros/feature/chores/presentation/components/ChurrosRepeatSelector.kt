@@ -23,7 +23,9 @@ import churros.shared.generated.resources.repeat_custom
 import churros.shared.generated.resources.repeat_daily
 import churros.shared.generated.resources.repeat_none
 import churros.shared.generated.resources.repeat_weekly
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -103,6 +105,7 @@ fun ChurrosRepeatSelector(
     }
 }
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun RepeatSelectorPreviewContent() {

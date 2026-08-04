@@ -27,7 +27,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.otp_field_content_desc
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosShapes
 import com.therxmv.churros.core.design.ChurrosSpacing
 import com.therxmv.churros.core.design.churrosColors
@@ -113,6 +115,7 @@ private fun OtpDigitBox(char: Char?, isCurrent: Boolean) {
     }
 }
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun OtpFieldPreviewContent() {

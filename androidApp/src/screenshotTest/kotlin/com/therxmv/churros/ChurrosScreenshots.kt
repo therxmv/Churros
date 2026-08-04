@@ -6,19 +6,13 @@ import com.android.tools.screenshot.PreviewTest
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ThemePreviewContent
-import com.therxmv.churros.core.design.components.BottomNavBarPreviewContent
-import com.therxmv.churros.core.design.components.ButtonsPreviewContent
 import com.therxmv.churros.core.design.components.CardPreviewContent
-import com.therxmv.churros.core.design.components.CheckboxPreviewContent
 import com.therxmv.churros.core.design.components.DateTimePickerPreviewContent
-import com.therxmv.churros.core.design.components.DividerPreviewContent
 import com.therxmv.churros.core.design.components.FilterChipPreviewContent
-import com.therxmv.churros.core.design.components.LogoPreviewContent
 import com.therxmv.churros.core.design.components.OnboardingPagerPreviewContent
 import com.therxmv.churros.core.design.components.OtpFieldPreviewContent
 import com.therxmv.churros.core.design.components.ProgressRingPreviewContent
 import com.therxmv.churros.core.design.components.RoleBadgePreviewContent
-import com.therxmv.churros.core.design.components.TextFieldPreviewContent
 import com.therxmv.churros.core.design.components.ToggleRowPreviewContent
 import com.therxmv.churros.feature.chores.presentation.components.CategoryPickerPreviewContent
 import com.therxmv.churros.feature.chores.presentation.components.PrioritySelectorPreviewContent
@@ -26,60 +20,22 @@ import com.therxmv.churros.feature.chores.presentation.components.RepeatSelector
 import com.therxmv.churros.feature.family.presentation.components.MemberCardPreviewContent
 import com.therxmv.churros.feature.notifications.presentation.components.NotificationItemActionablePreview
 import com.therxmv.churros.feature.notifications.presentation.components.NotificationItemInfoPreview
-import com.therxmv.churros.feature.auth.presentation.SplashScreenPreview
-import com.therxmv.churros.feature.auth.presentation.login.LoginScreenErrorPreview
-import com.therxmv.churros.feature.auth.presentation.login.LoginScreenPreview
-import com.therxmv.churros.feature.auth.presentation.register.RegisterScreenErrorPreview
-import com.therxmv.churros.feature.auth.presentation.register.RegisterScreenPreview
-// ── Components ────────────────────────────────────────────────────────────────
 
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun ButtonsScreenshot() = ButtonsPreviewContent()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun TextFieldScreenshot() = TextFieldPreviewContent()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun CheckboxScreenshot() = CheckboxPreviewContent()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun CardScreenshot() = CardPreviewContent()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun DividerScreenshot() = DividerPreviewContent()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun LogoScreenshot() = LogoPreviewContent()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun BottomNavBarScreenshot() = BottomNavBarPreviewContent()
+// ── Design System ─────────────────────────────────────────────────────────────
 
 @PreviewTest
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun ThemeScreenshot() = ThemePreviewContent()
+
+// ── Components ────────────────────────────────────────────────────────────────
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun CardScreenshot() = CardPreviewContent()
 
 @PreviewTest
 @PreviewWrapper(ChurrosPreviewWrapper::class)
@@ -123,6 +79,8 @@ fun OnboardingPagerScreenshot() = OnboardingPagerPreviewContent()
 @Composable
 fun DateTimePickerScreenshot() = DateTimePickerPreviewContent()
 
+// ── Feature: Chores ───────────────────────────────────────────────────────────
+
 @PreviewTest
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
@@ -141,11 +99,15 @@ fun RepeatSelectorScreenshot() = RepeatSelectorPreviewContent()
 @Composable
 fun PrioritySelectorScreenshot() = PrioritySelectorPreviewContent()
 
+// ── Feature: Family ───────────────────────────────────────────────────────────
+
 @PreviewTest
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun MemberCardScreenshot() = MemberCardPreviewContent()
+
+// ── Feature: Notifications ────────────────────────────────────────────────────
 
 @PreviewTest
 @PreviewWrapper(ChurrosPreviewWrapper::class)
@@ -158,35 +120,3 @@ fun NotificationItemActionableScreenshot() = NotificationItemActionablePreview()
 @ChurrosPreview
 @Composable
 fun NotificationItemInfoScreenshot() = NotificationItemInfoPreview()
-
-// ── Screens ───────────────────────────────────────────────────────────────────
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun SplashScreenScreenshot() = SplashScreenPreview()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun LoginScreenScreenshot() = LoginScreenPreview()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun LoginScreenErrorScreenshot() = LoginScreenErrorPreview()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun RegisterScreenScreenshot() = RegisterScreenPreview()
-
-@PreviewTest
-@PreviewWrapper(ChurrosPreviewWrapper::class)
-@ChurrosPreview
-@Composable
-fun RegisterScreenErrorScreenshot() = RegisterScreenErrorPreview()

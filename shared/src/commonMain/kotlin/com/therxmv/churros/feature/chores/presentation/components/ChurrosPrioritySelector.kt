@@ -24,7 +24,9 @@ import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.priority_high
 import churros.shared.generated.resources.priority_low
 import churros.shared.generated.resources.priority_medium
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
 import com.therxmv.churros.feature.chores.domain.model.ChorePriority
 import org.jetbrains.compose.resources.StringResource
@@ -103,6 +105,7 @@ fun ChurrosPrioritySelector(
     }
 }
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun PrioritySelectorPreviewContent() {

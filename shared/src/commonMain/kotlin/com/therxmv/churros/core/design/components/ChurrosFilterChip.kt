@@ -21,7 +21,9 @@ import churros.shared.generated.resources.chores_filter_all
 import churros.shared.generated.resources.chores_filter_done
 import churros.shared.generated.resources.chores_filter_today
 import churros.shared.generated.resources.chores_filter_tomorrow
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
 import org.jetbrains.compose.resources.stringResource
 
@@ -70,6 +72,7 @@ fun ChurrosFilterChip(
     }
 }
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun FilterChipPreviewContent() {

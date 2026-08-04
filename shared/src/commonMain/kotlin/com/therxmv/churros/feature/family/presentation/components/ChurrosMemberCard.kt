@@ -21,7 +21,9 @@ import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.member_tasks_completed
 import kotlinx.datetime.Instant
 import coil3.compose.AsyncImage
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosShapes
 import com.therxmv.churros.core.design.ChurrosSpacing
 import com.therxmv.churros.core.design.churrosColors
@@ -106,6 +108,7 @@ private fun HouseholdRole.toChurrosRoleType(): ChurrosRoleType = when (this) {
 
 // ── Previews ────────────────────────────────────────────────────────────────────
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun MemberCardPreviewContent() {

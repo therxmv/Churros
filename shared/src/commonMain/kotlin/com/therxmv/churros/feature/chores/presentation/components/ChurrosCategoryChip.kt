@@ -4,6 +4,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +26,9 @@ import churros.shared.generated.resources.chore_category_custom
 import churros.shared.generated.resources.chore_category_garden
 import churros.shared.generated.resources.chore_category_kitchen
 import churros.shared.generated.resources.chore_category_pets
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ChurrosSpacing
 import org.jetbrains.compose.resources.stringResource
 
@@ -75,6 +79,8 @@ fun ChurrosCategoryChip(
             text = label,
             style = MaterialTheme.typography.labelLarge,
             color = contentColor,
+            maxLines = 1,
+            softWrap = false,
             modifier = Modifier.padding(
                 horizontal = ChurrosSpacing.M,
                 vertical = ChurrosSpacing.S,
@@ -99,12 +105,12 @@ fun ChurrosCategoryPicker(
     modifier: Modifier = Modifier,
     categories: List<String> = defaultChoreCategories(),
 ) {
-    Row(
+    LazyRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(ChurrosSpacing.S),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        categories.forEach { category ->
+        items(categories) { category ->
             ChurrosCategoryChip(
                 label = category,
                 selected = category == selectedCategory,
@@ -125,22 +131,16 @@ fun defaultChoreCategories(): List<String> = listOf(
 
 // ── Previews ────────────────────────────────────────────────────────────────────
 
+@PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
 fun CategoryPickerPreviewContent() {
     var selected by remember { mutableStateOf<String?>("Kitchen") }
     val categories = listOf("Kitchen", "Garden", "Cleaning", "Pets", "+ Custom")
-    Row(
+    ChurrosCategoryPicker(
+        selectedCategory = selected,
+        onCategorySelected = { selected = it },
+        categories = categories,
         modifier = Modifier.padding(ChurrosSpacing.M),
-        horizontalArrangement = Arrangement.spacedBy(ChurrosSpacing.S),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        categories.forEach { cat ->
-            ChurrosCategoryChip(
-                label = cat,
-                selected = selected == cat,
-                onClick = { selected = cat },
-            )
-        }
-    }
+    )
 }
