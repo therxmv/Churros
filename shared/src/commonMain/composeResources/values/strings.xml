@@ -114,4 +114,52 @@
     <string name="chore_due_date_label">Due %1$s</string>
     <string name="chore_completed_content_desc">Completed</string>
     <string name="chore_delete_content_desc">Delete chore</string>
+
+    <!-- Chore categories (Phase 3 additions) -->
+    <string name="chore_category_kitchen">Kitchen</string>
+    <string name="chore_category_garden">Garden</string>
+    <string name="chore_category_pets">Pets</string>
+    <string name="chore_category_custom">+ Custom</string>
+
+    <!-- Chore filters (Phase 3 additions) -->
+    <string name="chores_filter_tomorrow">Tomorrow</string>
+    <string name="chores_filter_done">Done</string>
+
+    <!-- Repeat selector -->
+    <string name="repeat_none">None</string>
+    <string name="repeat_daily">Daily</string>
+    <string name="repeat_weekly">Weekly</string>
+    <string name="repeat_custom">Custom</string>
+
+    <!-- Priority selector -->
+    <string name="priority_low">Low</string>
+    <string name="priority_medium">Medium</string>
+    <string name="priority_high">High</string>
+
+    <!-- Role badges -->
+    <string name="role_badge_parent">Parent</string>
+    <string name="role_badge_kid">Kid</string>
+    <string name="role_badge_caregiver">Caregiver</string>
+
+    <!-- Notification actions -->
+    <string name="notification_action_approve">Approve</string>
+    <string name="notification_action_decline">Decline</string>
+    <string name="notification_action_approve_desc">Approve notification</string>
+    <string name="notification_action_decline_desc">Decline notification</string>
+
+    <!-- OTP field -->
+    <string name="otp_field_content_desc">One-time code input</string>
+
+    <!-- Progress ring -->
+    <string name="progress_ring_content_desc">%1$d%% complete</string>
+
+    <!-- Onboarding pager -->
+    <string name="onboarding_page_indicator_desc">Page %1$d of %2$d</string>
+
+    <!-- Date / time picker -->
+    <string name="date_picker_confirm">OK</string>
+    <string name="date_picker_dismiss">Cancel</string>
+
+    <!-- Member card -->
+    <string name="member_tasks_completed">%1$d tasks completed</string>
 </resources>
