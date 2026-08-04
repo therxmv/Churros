@@ -59,8 +59,7 @@ class SupabaseAuthRepository(
             this.password = password
         }
         supabaseClient.auth.currentUserOrNull()?.toDomain()
-            // TODO(Phase 3 — Localization): localize error message
-            ?: throw AuthError.Unknown(message = "User not found after sign-in")
+            ?: throw AuthError.UserNotFound
     }.mapAuthError()
 
     override suspend fun signUpWithEmail(
@@ -74,8 +73,7 @@ class SupabaseAuthRepository(
         // After sign-up with email confirmation enabled the session may not yet be active,
         // but the user object is still accessible if the provider returned one.
         supabaseClient.auth.currentUserOrNull()?.toDomain()
-            // TODO(Phase 3 — Localization): localize error message
-            ?: throw AuthError.Unknown(message = "User not found after sign-up")
+            ?: throw AuthError.UserNotFound
     }.mapAuthError()
 
     override suspend fun signInWithGoogle(idToken: String): Result<UserProfile> =
@@ -85,18 +83,14 @@ class SupabaseAuthRepository(
                 this.idToken = idToken
             }
             supabaseClient.auth.currentUserOrNull()?.toDomain()
-                // TODO(Phase 3 — Localization): localize error message
-                ?: throw AuthError.Unknown(message = "User not found after Google sign-in")
+                ?: throw AuthError.UserNotFound
         }.mapAuthError()
 
     override suspend fun signInWithApple(idToken: String): Result<UserProfile> {
         // TODO: Implement Apple SSO in the iOS stabilisation phase.
         //  Requires Apple OAuth certificates configured in the Supabase dashboard —
         //  see supabase/config.toml for context.
-        // TODO(Phase 3 — Localization): localize error message
-        return Result.failure(
-            AuthError.Unknown(message = "Apple Sign-In is not yet implemented"),
-        )
+        return Result.failure(AuthError.AppleSignInNotSupported)
     }
 
     override suspend fun signOut(): Result<Unit> = runCatching {
@@ -115,8 +109,7 @@ class SupabaseAuthRepository(
                 token = token,
             )
             supabaseClient.auth.currentUserOrNull()?.toDomain()
-                // TODO(Phase 3 — Localization): localize error message
-                ?: throw AuthError.Unknown(message = "User not found after OTP verification")
+                ?: throw AuthError.UserNotFound
         }.mapOtpAuthError()
 
     override suspend fun setNewPassword(newPassword: String): Result<Unit> = runCatching {

@@ -23,6 +23,12 @@ sealed class AuthError(
     /** The new password does not meet the minimum strength requirements. */
     data object WeakPassword : AuthError(message = "Password must be at least 8 characters, include a number and an uppercase letter")
 
+    /** The auth provider returned a session but the user object was null. */
+    data object UserNotFound : AuthError(message = "debug: user null after auth")
+
+    /** Apple Sign-In is not yet supported (iOS stabilisation phase). */
+    data object AppleSignInNotSupported : AuthError(message = "debug: Apple SSO not available")
+
     /** Catch-all for unexpected failures. */
     data class Unknown(
         override val message: String? = null,

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Errors — auth (mapped from AuthError domain types) -->
+    <string name="error_auth_invalid_credentials">Неправильний email або пароль. Спробуйте ще раз.</string>
+    <string name="error_auth_email_already_in_use">Акаунт з таким email вже існує.</string>
+    <string name="error_auth_network">Немає з\'єднання з інтернетом. Перевірте мережу.</string>
+    <string name="error_auth_invalid_otp">Невірний код. Спробуйте ще раз.</string>
+    <string name="error_auth_expired_link">Посилання застаріло. Будь ласка, запросіть нове.</string>
+    <string name="error_auth_weak_password">Пароль повинен містити щонайменше 8 символів, цифру та велику літеру.</string>
+    <string name="error_auth_user_not_found">Акаунт не знайдено. Спробуйте ще раз.</string>
+    <string name="error_auth_apple_not_available">Вхід через Apple ще недоступний. Оберіть інший спосіб.</string>
+    <string name="error_auth_unknown">Щось пішло не так. Спробуйте ще раз.</string>
+</resources>
