@@ -1,8 +1,8 @@
 package com.therxmv.churros.feature.family.data.dto
 
 import com.therxmv.churros.feature.family.data.local.FamilyMemberEntity
-import com.therxmv.churros.feature.family.domain.model.FamilyMember
 import com.therxmv.churros.feature.family.domain.model.toHouseholdRole
+import com.therxmv.churros.feature.settings.domain.model.UserProfile
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -37,15 +37,22 @@ data class ProfileDto(
 // ---------------------------------------------------------------------------
 
 /**
+ * Maps to [UserProfile].
+ *
  * Falls back to [userId] as the display name when the profiles join is absent
  * (e.g., when the profile row was deleted or the join is not included in the query).
+ *
+ * Fields not available from this DTO ([UserProfile.email], [UserProfile.pushToken],
+ * [UserProfile.createdAt], [UserProfile.notificationPreferences]) are set to their
+ * defaults.
  */
-internal fun FamilyMemberDto.toDomain(): FamilyMember = FamilyMember(
-    userId = userId,
-    householdId = householdId,
-    role = role.toHouseholdRole(),
+internal fun FamilyMemberDto.toDomain(): UserProfile = UserProfile(
+    id = userId,
+    email = null,
     displayName = profiles?.displayName ?: userId,
     avatarUrl = profiles?.avatarUrl,
+    householdId = householdId,
+    householdRole = role.toHouseholdRole(),
     joinedAt = Instant.parse(joinedAt),
 )
 

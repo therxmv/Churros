@@ -7,7 +7,6 @@ import com.therxmv.churros.feature.family.domain.usecase.GetHouseholdUseCase
 import com.therxmv.churros.feature.family.domain.usecase.GetMembersUseCase
 import com.therxmv.churros.feature.family.domain.usecase.RemoveMemberUseCase
 import com.therxmv.churros.feature.family.domain.usecase.UpdateHouseholdUseCase
-import com.therxmv.churros.feature.family.domain.usecase.UpdateMemberPermissionsUseCase
 import com.therxmv.churros.feature.family.domain.usecase.UploadHouseholdPhotoUseCase
 import org.koin.dsl.module
 
@@ -30,8 +29,5 @@ val familyModule = module {
     factory { UpdateHouseholdUseCase(repository = get()) }
     factory { GetMembersUseCase(repository = get()) }
     factory { RemoveMemberUseCase(repository = get()) }
-    // UpdateMemberPermissionsUseCase is a no-op stub; registered so it can be injected
-    // by any ViewModel that already references it, without crashing at startup.
-    factory { UpdateMemberPermissionsUseCase() }
     factory { UploadHouseholdPhotoUseCase(repository = get()) }
 }

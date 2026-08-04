@@ -2,8 +2,8 @@ package com.therxmv.churros.feature.family.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.therxmv.churros.feature.family.domain.model.FamilyMember
 import com.therxmv.churros.feature.family.domain.model.toHouseholdRole
+import com.therxmv.churros.feature.settings.domain.model.UserProfile
 import kotlinx.datetime.Instant
 
 /**
@@ -30,11 +30,18 @@ data class FamilyMemberEntity(
 // Mapping helper
 // ---------------------------------------------------------------------------
 
-internal fun FamilyMemberEntity.toDomain(): FamilyMember = FamilyMember(
-    userId = userId,
-    householdId = householdId,
-    role = role.toHouseholdRole(),
+/**
+ * Maps to [UserProfile].
+ *
+ * Fields not stored in the local cache ([UserProfile.email], [UserProfile.pushToken],
+ * [UserProfile.createdAt], [UserProfile.notificationPreferences]) are set to their defaults.
+ */
+internal fun FamilyMemberEntity.toDomain(): UserProfile = UserProfile(
+    id = userId,
+    email = null,
     displayName = displayName,
     avatarUrl = avatarUrl,
+    householdId = householdId,
+    householdRole = role.toHouseholdRole(),
     joinedAt = Instant.fromEpochMilliseconds(joinedAt),
 )

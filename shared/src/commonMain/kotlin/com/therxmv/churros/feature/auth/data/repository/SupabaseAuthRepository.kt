@@ -2,8 +2,8 @@ package com.therxmv.churros.feature.auth.data.repository
 
 import com.therxmv.churros.feature.auth.domain.model.AuthError
 import com.therxmv.churros.feature.auth.domain.model.AuthState
-import com.therxmv.churros.feature.auth.domain.model.AuthUser
 import com.therxmv.churros.feature.auth.domain.repository.AuthRepository
+import com.therxmv.churros.feature.settings.domain.model.UserProfile
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.OtpType
 import io.github.jan.supabase.auth.auth
@@ -47,13 +47,13 @@ class SupabaseAuthRepository(
             }
         }
 
-    override suspend fun getCurrentUser(): AuthUser? =
+    override suspend fun getCurrentUser(): UserProfile? =
         supabaseClient.auth.currentUserOrNull()?.toDomain()
 
     override suspend fun signInWithEmail(
         email: String,
         password: String,
-    ): Result<AuthUser> = runCatching {
+    ): Result<UserProfile> = runCatching {
         supabaseClient.auth.signInWith(Email) {
             this.email = email
             this.password = password
@@ -66,7 +66,7 @@ class SupabaseAuthRepository(
     override suspend fun signUpWithEmail(
         email: String,
         password: String,
-    ): Result<AuthUser> = runCatching {
+    ): Result<UserProfile> = runCatching {
         supabaseClient.auth.signUpWith(Email) {
             this.email = email
             this.password = password
@@ -78,7 +78,7 @@ class SupabaseAuthRepository(
             ?: throw AuthError.Unknown(message = "User not found after sign-up")
     }.mapAuthError()
 
-    override suspend fun signInWithGoogle(idToken: String): Result<AuthUser> =
+    override suspend fun signInWithGoogle(idToken: String): Result<UserProfile> =
         runCatching {
             supabaseClient.auth.signInWith(IDToken) {
                 provider = Google
@@ -89,7 +89,7 @@ class SupabaseAuthRepository(
                 ?: throw AuthError.Unknown(message = "User not found after Google sign-in")
         }.mapAuthError()
 
-    override suspend fun signInWithApple(idToken: String): Result<AuthUser> {
+    override suspend fun signInWithApple(idToken: String): Result<UserProfile> {
         // TODO: Implement Apple SSO in the iOS stabilisation phase.
         //  Requires Apple OAuth certificates configured in the Supabase dashboard —
         //  see supabase/config.toml for context.
@@ -107,7 +107,7 @@ class SupabaseAuthRepository(
         supabaseClient.auth.resetPasswordForEmail(email = email)
     }.mapAuthError()
 
-    override suspend fun verifyEmailOtp(email: String, token: String): Result<AuthUser> =
+    override suspend fun verifyEmailOtp(email: String, token: String): Result<UserProfile> =
         runCatching {
             supabaseClient.auth.verifyEmailOtp(
                 type = OtpType.Email.EMAIL,
@@ -130,12 +130,24 @@ class SupabaseAuthRepository(
     // Private helpers
     // -------------------------------------------------------------------------
 
-    private fun UserInfo.toDomain(): AuthUser = AuthUser(
+    /**
+     * Maps a Supabase [UserInfo] (from `auth.users`) to a lightweight [UserProfile].
+     *
+     * Only [UserProfile.id], [UserProfile.email], [UserProfile.displayName], and
+     * [UserProfile.avatarUrl] are populated here — the remaining fields require a
+     * separate fetch from `public.profiles` and `public.household_members` (via
+     * [com.therxmv.churros.feature.settings.domain.usecase.GetProfileUseCase]).
+     *
+     * [UserProfile.displayName] is non-null: it falls back to the email local-part,
+     * then to the user UUID, so it is always a valid non-empty string.
+     */
+    private fun UserInfo.toDomain(): UserProfile = UserProfile(
         id = id,
         email = email,
         displayName = userMetadata?.get("full_name")?.jsonPrimitive?.contentOrNull
             ?: userMetadata?.get("name")?.jsonPrimitive?.contentOrNull
-            ?: email?.substringBefore("@"),
+            ?: email?.substringBefore("@")
+            ?: id,
         avatarUrl = userMetadata?.get("avatar_url")?.jsonPrimitive?.contentOrNull
             ?: userMetadata?.get("picture")?.jsonPrimitive?.contentOrNull,
     )
@@ -187,4 +199,5 @@ class SupabaseAuthRepository(
         onSuccess = { Result.success(it) },
         onFailure = { Result.failure(it.toOtpAuthError()) },
     )
+
 }

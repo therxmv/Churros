@@ -1,25 +1,27 @@
 package com.therxmv.churros.feature.family.domain.model
 
-import kotlinx.datetime.Instant
+import com.therxmv.churros.feature.settings.domain.model.UserProfile
 
 /**
- * Domain model representing a single member of a household.
+ * Kept as a typealias so existing code that references [FamilyMember] by name still
+ * compiles without changes.
  *
- * Profile fields ([displayName], [avatarUrl]) are denormalised from the
- * `profiles` table and embedded here for convenient use by the presentation layer.
+ * Prefer [UserProfile] directly for new code — it is the single consolidated user/member
+ * model for this project.
  *
- * @property userId      Supabase auth user UUID — also the `profiles.id` FK.
- * @property householdId UUID of the household this member belongs to.
- * @property role        Parent or Kid role within the household.
- * @property displayName User's display name from `profiles.display_name`.
- * @property avatarUrl   User's avatar URL from `profiles.avatar_url`, or null.
- * @property joinedAt    When the user joined the household.
+ * Field mapping from the old data class:
+ *   userId      → [UserProfile.id]
+ *   householdId → [UserProfile.householdId]
+ *   role        → [UserProfile.householdRole]
+ *   displayName → [UserProfile.displayName]
+ *   avatarUrl   → [UserProfile.avatarUrl]
+ *   joinedAt    → [UserProfile.joinedAt]
  */
-data class FamilyMember(
-    val userId: String,
-    val householdId: String,
-    val role: HouseholdRole,
-    val displayName: String,
-    val avatarUrl: String?,
-    val joinedAt: Instant,
+@Deprecated(
+    message = "Use UserProfile directly. FamilyMember is a typealias kept for source compatibility.",
+    replaceWith = ReplaceWith(
+        expression = "UserProfile",
+        imports = ["com.therxmv.churros.feature.settings.domain.model.UserProfile"],
+    ),
 )
+typealias FamilyMember = UserProfile
