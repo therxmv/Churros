@@ -3,7 +3,7 @@ package com.therxmv.churros.feature.chores.data.local
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.therxmv.churros.feature.chores.domain.model.Chore
-import com.therxmv.churros.feature.chores.domain.model.ChorePriority
+import com.therxmv.churros.feature.chores.domain.model.toChorePriority
 import kotlinx.datetime.Instant
 
 /**
@@ -44,11 +44,7 @@ internal fun ChoreEntity.toDomain(): Chore = Chore(
     assigneeId = assigneeId,
     title = title,
     category = category,
-    priority = when (priority.lowercase()) {
-        "low" -> ChorePriority.LOW
-        "high" -> ChorePriority.HIGH
-        else -> ChorePriority.MEDIUM
-    },
+    priority = priority.toChorePriority(),
     rewardPoints = rewardPoints,
     dueAt = dueAt?.let { Instant.fromEpochMilliseconds(it) },
     repeatSchedule = repeatSchedule,

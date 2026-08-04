@@ -3,7 +3,6 @@ package com.therxmv.churros.feature.chores.data.repository
 import co.touchlab.kermit.Logger
 import com.therxmv.churros.feature.chores.data.dto.ChoreDto
 import com.therxmv.churros.feature.chores.data.dto.HouseholdMemberDto
-import com.therxmv.churros.feature.chores.data.dto.toDto
 import com.therxmv.churros.feature.chores.data.dto.toDomain
 import com.therxmv.churros.feature.chores.data.dto.toEntity
 import com.therxmv.churros.feature.chores.data.local.ChoreDao
@@ -11,6 +10,7 @@ import com.therxmv.churros.feature.chores.data.local.toDomain
 import com.therxmv.churros.feature.chores.domain.model.Chore
 import com.therxmv.churros.feature.chores.domain.model.ChoreError
 import com.therxmv.churros.feature.chores.domain.model.ChorePriority
+import com.therxmv.churros.feature.chores.domain.model.toDto
 import com.therxmv.churros.feature.chores.domain.repository.ChoreRepository
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth

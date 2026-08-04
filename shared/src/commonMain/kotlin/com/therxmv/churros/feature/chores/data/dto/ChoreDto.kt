@@ -3,6 +3,7 @@ package com.therxmv.churros.feature.chores.data.dto
 import com.therxmv.churros.feature.chores.data.local.ChoreEntity
 import com.therxmv.churros.feature.chores.domain.model.Chore
 import com.therxmv.churros.feature.chores.domain.model.ChorePriority
+import com.therxmv.churros.feature.chores.domain.model.toChorePriority
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -65,14 +66,3 @@ internal fun ChoreDto.toEntity(): ChoreEntity = ChoreEntity(
     createdAt = Instant.parse(createdAt).toEpochMilliseconds(),
 )
 
-private fun String.toChorePriority(): ChorePriority = when (this.lowercase()) {
-    "low" -> ChorePriority.LOW
-    "high" -> ChorePriority.HIGH
-    else -> ChorePriority.MEDIUM
-}
-
-internal fun ChorePriority.toDto(): String = when (this) {
-    ChorePriority.LOW -> "low"
-    ChorePriority.MEDIUM -> "medium"
-    ChorePriority.HIGH -> "high"
-}

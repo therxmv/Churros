@@ -13,19 +13,23 @@ sealed class ChoreError(
 
     /** The authenticated user is not a member of any household. */
     data object HouseholdNotFound : ChoreError(
+        // TODO(Phase 3 — Localization): localize error message
         message = "No household found — please create or join a household first",
     )
 
     /** The requested chore does not exist or is not visible to the current user. */
+    // TODO(Phase 3 — Localization): localize error message
     data object NotFound : ChoreError(message = "Chore not found")
 
     /** The operation is forbidden by the database's Row Level Security policies. */
     data object Unauthorized : ChoreError(
+        // TODO(Phase 3 — Localization): localize error message
         message = "You do not have permission to perform this action",
     )
 
     /** The device has no network connection or the Supabase host is unreachable. */
     data object NetworkError : ChoreError(
+        // TODO(Phase 3 — Localization): localize error message
         message = "Network error — please check your connection",
     )
 
