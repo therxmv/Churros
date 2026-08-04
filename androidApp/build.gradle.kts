@@ -22,6 +22,7 @@ dependencies {
     implementation(projects.shared)
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.appcompat)
     implementation(libs.koin.android)
     implementation(libs.androidx.core.splashscreen)
 

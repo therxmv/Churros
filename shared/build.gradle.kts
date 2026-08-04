@@ -70,6 +70,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.ktor.client.cio)
+            implementation(libs.androidx.appcompat)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
