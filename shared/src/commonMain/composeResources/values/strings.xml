@@ -39,10 +39,21 @@
     <string name="login_signing_in">Signing in…</string>
     <string name="register_creating_account">Creating account…</string>
 
-    <!-- Errors -->
+    <!-- Errors — form validation -->
     <string name="error_invalid_email">Enter a valid email address</string>
     <string name="error_password_too_short">Password must be at least 8 characters</string>
     <string name="error_name_required">Name is required</string>
+
+    <!-- Errors — auth (mapped from AuthError domain types) -->
+    <string name="error_auth_invalid_credentials">Wrong email or password. Try again.</string>
+    <string name="error_auth_email_already_in_use">An account with this email already exists.</string>
+    <string name="error_auth_network">No internet connection. Please check your network.</string>
+    <string name="error_auth_invalid_otp">That code doesn\'t look right. Please try again.</string>
+    <string name="error_auth_expired_link">This link has expired. Please request a new one.</string>
+    <string name="error_auth_weak_password">Your password needs at least 8 characters, a number, and an uppercase letter.</string>
+    <string name="error_auth_user_not_found">We couldn\'t find your account. Please try again.</string>
+    <string name="error_auth_apple_not_available">Apple Sign-In isn\'t available yet. Try another option.</string>
+    <string name="error_auth_unknown">Something went wrong. Please try again.</string>
 
     <!-- Home -->
     <string name="home_greeting_morning">Good morning,</string>
