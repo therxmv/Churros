@@ -82,7 +82,7 @@ fun ChurrosOnboardingPager(
                 val dotColor = if (isSelected) {
                     MaterialTheme.colorScheme.primary
                 } else {
-                    MaterialTheme.colorScheme.surfaceVariant
+                    MaterialTheme.colorScheme.outline
                 }
                 Box(
                     modifier = Modifier
