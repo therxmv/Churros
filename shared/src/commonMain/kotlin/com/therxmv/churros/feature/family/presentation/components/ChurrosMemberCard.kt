@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.member_tasks_completed
 import kotlinx.datetime.Instant
-import coil3.compose.AsyncImage
+import com.therxmv.churros.core.design.components.ChurrosAvatar
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
@@ -32,8 +30,6 @@ import com.therxmv.churros.core.design.components.ChurrosRoleType
 import com.therxmv.churros.feature.family.domain.model.HouseholdRole
 import com.therxmv.churros.feature.family.domain.model.MemberProfile
 import org.jetbrains.compose.resources.stringResource
-
-private val AvatarSize = 48.dp
 
 /**
  * Household member row showing avatar, display name, role badge, and task progress.
@@ -58,12 +54,10 @@ fun ChurrosMemberCard(
             .padding(vertical = ChurrosSpacing.S),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        AsyncImage(
-            model = member.avatarUrl,
-            contentDescription = null,
-            modifier = Modifier
-                .size(AvatarSize)
-                .clip(CircleShape),
+        ChurrosAvatar(
+            avatarUrl = member.avatarUrl,
+            displayName = member.displayName,
+            size = 48.dp,
         )
         Spacer(modifier = Modifier.width(ChurrosSpacing.M))
         Column(modifier = Modifier.weight(1f)) {

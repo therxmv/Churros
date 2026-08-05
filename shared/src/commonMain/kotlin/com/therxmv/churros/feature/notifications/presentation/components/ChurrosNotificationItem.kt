@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -15,14 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.notification_action_approve
 import churros.shared.generated.resources.notification_action_approve_desc
 import churros.shared.generated.resources.notification_action_decline
 import churros.shared.generated.resources.notification_action_decline_desc
-import coil3.compose.AsyncImage
+import com.therxmv.churros.core.design.components.ChurrosAvatar
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
@@ -40,7 +37,8 @@ private val AvatarSize = 44.dp
  *   Used for [com.therxmv.churros.feature.notifications.domain.model.NotificationType.REWARD_REQUEST].
  * - **Informational** (`onApprove == null`): message + timestamp only.
  *
- * @param avatarUrl   URL for the sender's avatar. Null renders a placeholder.
+ * @param avatarUrl   URL for the sender's avatar. Null shows an initials fallback.
+ * @param senderName  Sender's display name; used for initials and fallback color.
  * @param message     Pre-formatted, possibly annotated notification text.
  * @param timestamp   Human-readable relative time string (e.g. "2 mins ago").
  * @param onApprove   Approve action callback; non-null enables the actionable variant.
@@ -49,6 +47,7 @@ private val AvatarSize = 44.dp
 @Composable
 fun ChurrosNotificationItem(
     avatarUrl: String?,
+    senderName: String,
     message: String,
     timestamp: String,
     modifier: Modifier = Modifier,
@@ -62,7 +61,11 @@ fun ChurrosNotificationItem(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(ChurrosSpacing.M),
     ) {
-        NotificationAvatar(avatarUrl = avatarUrl)
+        ChurrosAvatar(
+            avatarUrl = avatarUrl,
+            displayName = senderName,
+            size = AvatarSize,
+        )
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
@@ -85,17 +88,6 @@ fun ChurrosNotificationItem(
             }
         }
     }
-}
-
-@Composable
-private fun NotificationAvatar(avatarUrl: String?) {
-    AsyncImage(
-        model = avatarUrl,
-        contentDescription = null,
-        modifier = Modifier
-            .size(AvatarSize)
-            .clip(CircleShape),
-    )
 }
 
 @Composable
@@ -145,6 +137,7 @@ fun NotificationItemActionablePreview() {
     Column(modifier = Modifier.padding(ChurrosSpacing.M)) {
         ChurrosNotificationItem(
             avatarUrl = null,
+            senderName = "Jamie",
             message = "Jamie requested 'Extra Gaming Hour' for 50 pts.",
             timestamp = "2 mins ago",
             onApprove = {},
@@ -160,11 +153,13 @@ fun NotificationItemInfoPreview() {
     Column(modifier = Modifier.padding(ChurrosSpacing.M)) {
         ChurrosNotificationItem(
             avatarUrl = null,
+            senderName = "Mom",
             message = "Mom assigned 'Vacuum Living Room' to you.",
             timestamp = "15 mins ago",
         )
         ChurrosNotificationItem(
             avatarUrl = null,
+            senderName = "Sarah",
             message = "Sarah completed 'Feed the Dog'.",
             timestamp = "3 hours ago",
             modifier = Modifier.padding(top = ChurrosSpacing.S),
