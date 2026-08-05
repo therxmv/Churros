@@ -6,13 +6,16 @@ import com.android.tools.screenshot.PreviewTest
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ThemePreviewContent
+import com.therxmv.churros.core.design.components.BottomNavBarPreviewContent
 import com.therxmv.churros.core.design.components.CardPreviewContent
 import com.therxmv.churros.core.design.components.DateTimePickerPreviewContent
 import com.therxmv.churros.core.design.components.FilterChipPreviewContent
+import com.therxmv.churros.core.design.components.FullScreenPreviewContent
 import com.therxmv.churros.core.design.components.OnboardingPagerPreviewContent
 import com.therxmv.churros.core.design.components.OtpFieldPreviewContent
 import com.therxmv.churros.core.design.components.ProgressRingPreviewContent
 import com.therxmv.churros.core.design.components.RoleBadgePreviewContent
+import com.therxmv.churros.core.design.components.ScaffoldScreenPreviewContent
 import com.therxmv.churros.core.design.components.ToggleRowPreviewContent
 import com.therxmv.churros.feature.chores.presentation.components.CategoryPickerPreviewContent
 import com.therxmv.churros.feature.chores.presentation.components.PrioritySelectorPreviewContent
@@ -78,6 +81,24 @@ fun OnboardingPagerScreenshot() = OnboardingPagerPreviewContent()
 @ChurrosPreview
 @Composable
 fun DateTimePickerScreenshot() = DateTimePickerPreviewContent()
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun BottomNavBarScreenshot() = BottomNavBarPreviewContent()
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun FullScreenScreenshot() = FullScreenPreviewContent()
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun ScaffoldScreenScreenshot() = ScaffoldScreenPreviewContent()
 
 // ── Feature: Chores ───────────────────────────────────────────────────────────
 

@@ -23,6 +23,7 @@ val TextDisabledLight   = Color(0xFFC8B8A8)
 // ── Light extra ───────────────────────────────────────────────────────────────
 val HoneyTextLight       = Color(0xFF8B4E00)
 val InputBackgroundLight = Color(0xFFFFF3E8)
+val NavSelectedLight     = Color(0xFFFDECCB)
 
 // ── Dark backgrounds ──────────────────────────────────────────────────────────
 val BackgroundDark      = Color(0xFF1C1308)
@@ -34,6 +35,7 @@ val DividerDark         = Color(0xFF463932)
 val TextPrimaryDark    = Color(0xFFF8F4EE)
 val TextSecondaryDark  = Color(0xFFD7C8BA)
 val EspressoAccentDark = Color(0xFFB79A8A)
+val NavSelectedDark    = Color(0xFF2F1F09)
 
 // ── Semantic (same in both themes) ────────────────────────────────────────────
 val SemanticSuccess = Color(0xFF67B36A)

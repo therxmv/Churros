@@ -1,20 +1,33 @@
 package com.therxmv.churros.core.design.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.tooling.preview.PreviewWrapper
+import androidx.compose.ui.unit.dp
 import churros.shared.generated.resources.Res
 import churros.shared.generated.resources.nav_chores
 import churros.shared.generated.resources.nav_family
 import churros.shared.generated.resources.nav_home
 import com.therxmv.churros.core.design.ChurrosIcons
+import com.therxmv.churros.core.design.ChurrosPreview
+import com.therxmv.churros.core.design.ChurrosPreviewWrapper
+import com.therxmv.churros.core.design.churrosColors
 import com.therxmv.churros.core.navigation.AddMemberRoute
 import com.therxmv.churros.core.navigation.ChoresRoute
 import com.therxmv.churros.core.navigation.FamilyRoute
@@ -85,34 +98,71 @@ fun ChurrosBottomNavBar(
 ) {
     NavigationBar(
         modifier = modifier.fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = MaterialTheme.churrosColors.navBarContainer,
         contentColor = MaterialTheme.colorScheme.onSurface,
     ) {
-        BottomNavTab.entries.forEach { tab ->
-            val selected = tab.isSelected(currentRoute)
-            NavigationBarItem(
-                selected = selected,
-                onClick = { onTabSelected(tab.rootRoute) },
-                icon = {
-                    Icon(
-                        imageVector = tab.icon,
-                        contentDescription = stringResource(tab.label),
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(tab.label),
-                        style = MaterialTheme.typography.labelSmall,
-                    )
-                },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
-                    selectedTextColor = MaterialTheme.colorScheme.primary,
-                    indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                ),
-            )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+        ) {
+            BottomNavTab.entries.forEach { tab ->
+                ChurrosNavBarItem(
+                    selected = tab.isSelected(currentRoute),
+                    icon = tab.icon,
+                    label = stringResource(tab.label),
+                    onClick = { onTabSelected(tab.rootRoute) },
+                )
+            }
         }
+    }
+}
+
+/**
+ * A single bottom-nav tab. The selected tab renders as one rounded card wrapping both the
+ * icon and the label — matching the design mockups, which is not achievable with Material3's
+ * stock [androidx.compose.material3.NavigationBarItem] (its indicator only wraps the icon).
+ */
+@Composable
+private fun ChurrosNavBarItem(
+    selected: Boolean,
+    icon: ImageVector,
+    label: String,
+    onClick: () -> Unit,
+) {
+    val contentColor = if (selected) {
+        MaterialTheme.churrosColors.navSelectedContent
+    } else {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    }
+
+    Column(
+        modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(if (selected) MaterialTheme.churrosColors.navSelectedBackground else Color.Transparent)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            tint = contentColor,
+        )
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall,
+            color = contentColor,
+        )
+    }
+}
+
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun BottomNavBarPreviewContent() {
+    Column {
+        ChurrosBottomNavBar(currentRoute = HomeRoute, onTabSelected = {})
+        ChurrosBottomNavBar(currentRoute = ChoresRoute, onTabSelected = {})
+        ChurrosBottomNavBar(currentRoute = FamilyRoute, onTabSelected = {})
     }
 }
