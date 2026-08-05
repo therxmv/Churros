@@ -1,10 +1,6 @@
 package com.therxmv.churros.core.design.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -14,6 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import churros.shared.generated.resources.Res
+import churros.shared.generated.resources.nav_chores
+import churros.shared.generated.resources.nav_family
+import churros.shared.generated.resources.nav_home
+import com.therxmv.churros.core.design.ChurrosIcons
 import com.therxmv.churros.core.navigation.AddMemberRoute
 import com.therxmv.churros.core.navigation.ChoresRoute
 import com.therxmv.churros.core.navigation.FamilyRoute
@@ -22,10 +23,6 @@ import com.therxmv.churros.core.navigation.HouseholdProfileRoute
 import com.therxmv.churros.core.navigation.ManageFamilyRoute
 import com.therxmv.churros.core.navigation.PermissionsRoute
 import com.therxmv.churros.core.navigation.ScaffoldRoute
-import churros.shared.generated.resources.Res
-import churros.shared.generated.resources.nav_chores
-import churros.shared.generated.resources.nav_family
-import churros.shared.generated.resources.nav_home
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import kotlin.reflect.KClass
@@ -40,19 +37,19 @@ private enum class BottomNavTab(
 ) {
     Home(
         label = Res.string.nav_home,
-        icon = Icons.Default.Home,
+        icon = ChurrosIcons.Home,
         rootRoute = HomeRoute,
         selectedRoutes = setOf(HomeRoute::class),
     ),
     Chores(
         label = Res.string.nav_chores,
-        icon = Icons.Default.Check,
+        icon = ChurrosIcons.Check,
         rootRoute = ChoresRoute,
         selectedRoutes = setOf(ChoresRoute::class),
     ),
     Family(
         label = Res.string.nav_family,
-        icon = Icons.Default.Person,
+        icon = ChurrosIcons.Person,
         rootRoute = FamilyRoute,
         selectedRoutes = setOf(
             FamilyRoute::class,
