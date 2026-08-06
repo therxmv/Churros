@@ -21,7 +21,7 @@ sealed interface FullscreenRoute : NavKey {
     @Serializable data object NotificationsRoute : FullscreenRoute
 
     // Onboarding carousel (shown once on first launch — single screen with internal pager)
-    @Serializable data object Onboarding1Route : FullscreenRoute
+    @Serializable data object OnboardingRoute : FullscreenRoute
 
     // Auth flow
     @Serializable data object SignInRoute : FullscreenRoute

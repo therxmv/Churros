@@ -112,7 +112,7 @@ fun ChurrosNavGraph(startDestination: NavKey) {
                     }
                 }
 
-                entry<FullscreenRoute.Onboarding1Route> {
+                entry<FullscreenRoute.OnboardingRoute> {
                     ChurrosFullScreen {
                         OnboardingScreen(
                             onNavigateToSignIn = {

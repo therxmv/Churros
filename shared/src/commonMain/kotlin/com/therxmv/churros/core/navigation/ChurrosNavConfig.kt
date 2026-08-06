@@ -28,7 +28,7 @@ val churrosNavConfig: SavedStateConfiguration by lazy {
                 subclass(FullscreenRoute.HouseholdProfileRoute::class)
                 subclass(FullscreenRoute.SettingsRoute::class)
                 subclass(FullscreenRoute.NotificationsRoute::class)
-                subclass(FullscreenRoute.Onboarding1Route::class)
+                subclass(FullscreenRoute.OnboardingRoute::class)
                 subclass(FullscreenRoute.SignInRoute::class)
                 subclass(FullscreenRoute.SignUpRoute::class)
                 subclass(FullscreenRoute.VerifyEmailRoute::class)
