@@ -18,23 +18,23 @@ val churrosNavConfig: SavedStateConfiguration by lazy {
         serializersModule = SerializersModule {
             polymorphic(NavKey::class) {
                 // ── ScaffoldRoute ──────────────────────────────────────────────
-                subclass(HomeRoute::class)
-                subclass(ChoresRoute::class)
-                subclass(FamilyRoute::class)
-                subclass(ManageFamilyRoute::class)
-                subclass(AddMemberRoute::class)
-                subclass(PermissionsRoute::class)
-                subclass(HouseholdProfileRoute::class)
-                subclass(SettingsRoute::class)
-                subclass(NotificationsRoute::class)
+                subclass(ScaffoldRoute.HomeRoute::class)
+                subclass(ScaffoldRoute.ChoresRoute::class)
+                subclass(ScaffoldRoute.FamilyRoute::class)
                 // ── FullscreenRoute ────────────────────────────────────────────
-                subclass(Onboarding1Route::class)
-                subclass(Onboarding2Route::class)
-                subclass(Onboarding3Route::class)
-                subclass(SignInRoute::class)
-                subclass(SignUpRoute::class)
-                subclass(VerifyEmailRoute::class)
-                subclass(SetNewPasswordRoute::class)
+                subclass(FullscreenRoute.ManageFamilyRoute::class)
+                subclass(FullscreenRoute.AddMemberRoute::class)
+                subclass(FullscreenRoute.PermissionsRoute::class)
+                subclass(FullscreenRoute.HouseholdProfileRoute::class)
+                subclass(FullscreenRoute.SettingsRoute::class)
+                subclass(FullscreenRoute.NotificationsRoute::class)
+                subclass(FullscreenRoute.Onboarding1Route::class)
+                subclass(FullscreenRoute.Onboarding2Route::class)
+                subclass(FullscreenRoute.Onboarding3Route::class)
+                subclass(FullscreenRoute.SignInRoute::class)
+                subclass(FullscreenRoute.SignUpRoute::class)
+                subclass(FullscreenRoute.VerifyEmailRoute::class)
+                subclass(FullscreenRoute.SetNewPasswordRoute::class)
             }
         }
     }

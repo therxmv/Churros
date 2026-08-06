@@ -25,11 +25,11 @@ import com.therxmv.churros.core.design.components.ChurrosScaffoldScreen
  * - [FullscreenRoute] → [ChurrosFullScreen] (no navigation chrome)
  *
  * **Clearing auth/onboarding history:**
- * Feature ViewModels navigate to [HomeRoute] after successful sign-in by calling:
+ * Feature ViewModels navigate to [ScaffoldRoute.HomeRoute] after successful sign-in by calling:
  * ```kotlin
  * val backStack = LocalNavBackStack.current
  * backStack.clear()
- * backStack.add(HomeRoute)
+ * backStack.add(ScaffoldRoute.HomeRoute)
  * ```
  * This ensures back from Home exits the app rather than returning to the auth flow.
  *
@@ -46,7 +46,7 @@ fun ChurrosNavGraph(startDestination: NavKey) {
             entryProvider = entryProvider {
                 // ── ScaffoldRoute destinations ─────────────────────────────────
 
-                entry<HomeRoute> { route ->
+                entry<ScaffoldRoute.HomeRoute> { route ->
                     ChurrosScaffoldScreen(
                         currentRoute = route,
                         onTabSelected = { backStack.navigateToTab(it) },
@@ -55,7 +55,7 @@ fun ChurrosNavGraph(startDestination: NavKey) {
                     }
                 }
 
-                entry<ChoresRoute> { route ->
+                entry<ScaffoldRoute.ChoresRoute> { route ->
                     ChurrosScaffoldScreen(
                         currentRoute = route,
                         onTabSelected = { backStack.navigateToTab(it) },
@@ -64,7 +64,7 @@ fun ChurrosNavGraph(startDestination: NavKey) {
                     }
                 }
 
-                entry<FamilyRoute> { route ->
+                entry<ScaffoldRoute.FamilyRoute> { route ->
                     ChurrosScaffoldScreen(
                         currentRoute = route,
                         onTabSelected = { backStack.navigateToTab(it) },
@@ -73,99 +73,81 @@ fun ChurrosNavGraph(startDestination: NavKey) {
                     }
                 }
 
-                entry<ManageFamilyRoute> { route ->
-                    ChurrosScaffoldScreen(
-                        currentRoute = route,
-                        onTabSelected = { backStack.navigateToTab(it) },
-                    ) {
+                // ── FullscreenRoute destinations ───────────────────────────────
+
+                entry<FullscreenRoute.ManageFamilyRoute> {
+                    ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: ManageFamilyScreen
                     }
                 }
 
-                entry<AddMemberRoute> { route ->
-                    ChurrosScaffoldScreen(
-                        currentRoute = route,
-                        onTabSelected = { backStack.navigateToTab(it) },
-                    ) {
+                entry<FullscreenRoute.AddMemberRoute> {
+                    ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: AddMemberScreen
                     }
                 }
 
-                entry<PermissionsRoute> { route ->
-                    ChurrosScaffoldScreen(
-                        currentRoute = route,
-                        onTabSelected = { backStack.navigateToTab(it) },
-                    ) {
+                entry<FullscreenRoute.PermissionsRoute> {
+                    ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: PermissionsScreen
                     }
                 }
 
-                entry<HouseholdProfileRoute> { route ->
-                    ChurrosScaffoldScreen(
-                        currentRoute = route,
-                        onTabSelected = { backStack.navigateToTab(it) },
-                    ) {
+                entry<FullscreenRoute.HouseholdProfileRoute> {
+                    ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: HouseholdProfileScreen
                     }
                 }
 
-                entry<SettingsRoute> { route ->
-                    ChurrosScaffoldScreen(
-                        currentRoute = route,
-                        onTabSelected = { backStack.navigateToTab(it) },
-                    ) {
+                entry<FullscreenRoute.SettingsRoute> {
+                    ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: SettingsScreen
                     }
                 }
 
-                entry<NotificationsRoute> { route ->
-                    ChurrosScaffoldScreen(
-                        currentRoute = route,
-                        onTabSelected = { backStack.navigateToTab(it) },
-                    ) {
+                entry<FullscreenRoute.NotificationsRoute> {
+                    ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: NotificationsScreen
                     }
                 }
 
-                // ── FullscreenRoute destinations ───────────────────────────────
-
-                entry<Onboarding1Route> {
+                entry<FullscreenRoute.Onboarding1Route> {
                     ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: OnboardingScreen (slide 1)
                     }
                 }
 
-                entry<Onboarding2Route> {
+                entry<FullscreenRoute.Onboarding2Route> {
                     ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: OnboardingScreen (slide 2)
                     }
                 }
 
-                entry<Onboarding3Route> {
+                entry<FullscreenRoute.Onboarding3Route> {
                     ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: OnboardingScreen (slide 3)
                     }
                 }
 
-                entry<SignInRoute> {
+                entry<FullscreenRoute.SignInRoute> {
                     ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: SignInScreen
                     }
                 }
 
-                entry<SignUpRoute> {
+                entry<FullscreenRoute.SignUpRoute> {
                     ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: SignUpScreen
                     }
                 }
 
-                entry<VerifyEmailRoute> {
+                entry<FullscreenRoute.VerifyEmailRoute> {
                     ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: VerifyEmailScreen
                     }
                 }
 
-                entry<SetNewPasswordRoute> {
+                entry<FullscreenRoute.SetNewPasswordRoute> {
                     ChurrosFullScreen {
                         Box(Modifier.fillMaxSize()) // TODO: SetNewPasswordScreen
                     }

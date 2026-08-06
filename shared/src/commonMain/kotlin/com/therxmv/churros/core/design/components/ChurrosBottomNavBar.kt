@@ -28,17 +28,9 @@ import com.therxmv.churros.core.design.ChurrosIcons
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.churrosColors
-import com.therxmv.churros.core.navigation.AddMemberRoute
-import com.therxmv.churros.core.navigation.ChoresRoute
-import com.therxmv.churros.core.navigation.FamilyRoute
-import com.therxmv.churros.core.navigation.HomeRoute
-import com.therxmv.churros.core.navigation.HouseholdProfileRoute
-import com.therxmv.churros.core.navigation.ManageFamilyRoute
-import com.therxmv.churros.core.navigation.PermissionsRoute
 import com.therxmv.churros.core.navigation.ScaffoldRoute
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
-import kotlin.reflect.KClass
 
 // ── Tab model ─────────────────────────────────────────────────────────────────
 
@@ -46,35 +38,25 @@ private enum class BottomNavTab(
     val label: StringResource,
     val icon: ImageVector,
     val rootRoute: ScaffoldRoute,
-    val selectedRoutes: Set<KClass<out ScaffoldRoute>>,
 ) {
     Home(
         label = Res.string.nav_home,
         icon = ChurrosIcons.Home,
-        rootRoute = HomeRoute,
-        selectedRoutes = setOf(HomeRoute::class),
+        rootRoute = ScaffoldRoute.HomeRoute,
     ),
     Chores(
         label = Res.string.nav_chores,
         icon = ChurrosIcons.Check,
-        rootRoute = ChoresRoute,
-        selectedRoutes = setOf(ChoresRoute::class),
+        rootRoute = ScaffoldRoute.ChoresRoute,
     ),
     Family(
         label = Res.string.nav_family,
         icon = ChurrosIcons.Person,
-        rootRoute = FamilyRoute,
-        selectedRoutes = setOf(
-            FamilyRoute::class,
-            ManageFamilyRoute::class,
-            AddMemberRoute::class,
-            PermissionsRoute::class,
-            HouseholdProfileRoute::class,
-        ),
+        rootRoute = ScaffoldRoute.FamilyRoute,
     ),
     ;
 
-    fun isSelected(currentRoute: ScaffoldRoute): Boolean = currentRoute::class in selectedRoutes
+    fun isSelected(currentRoute: ScaffoldRoute): Boolean = currentRoute == rootRoute
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -82,9 +64,7 @@ private enum class BottomNavTab(
 /**
  * Churros bottom navigation bar with three tabs: Home, Chores, and Family.
  *
- * The active tab is determined by [currentRoute]. Family sub-screens (ManageFamily,
- * AddMember, Permissions, HouseholdProfile) keep the Family tab highlighted.
- * Settings and Notifications display no active tab.
+ * The active tab is determined by [currentRoute].
  *
  * @param currentRoute  The currently visible scaffold destination.
  * @param onTabSelected Called with the root route for the tapped tab.
@@ -161,8 +141,8 @@ private fun ChurrosNavBarItem(
 @Composable
 fun BottomNavBarPreviewContent() {
     Column {
-        ChurrosBottomNavBar(currentRoute = HomeRoute, onTabSelected = {})
-        ChurrosBottomNavBar(currentRoute = ChoresRoute, onTabSelected = {})
-        ChurrosBottomNavBar(currentRoute = FamilyRoute, onTabSelected = {})
+        ChurrosBottomNavBar(currentRoute = ScaffoldRoute.HomeRoute, onTabSelected = {})
+        ChurrosBottomNavBar(currentRoute = ScaffoldRoute.ChoresRoute, onTabSelected = {})
+        ChurrosBottomNavBar(currentRoute = ScaffoldRoute.FamilyRoute, onTabSelected = {})
     }
 }

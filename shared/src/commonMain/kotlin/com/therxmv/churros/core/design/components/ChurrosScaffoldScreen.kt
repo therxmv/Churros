@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
-import com.therxmv.churros.core.navigation.HomeRoute
 import com.therxmv.churros.core.navigation.ScaffoldRoute
 
 /**
@@ -55,7 +54,7 @@ fun ChurrosScaffoldScreen(
 @ChurrosPreview
 @Composable
 fun ScaffoldScreenPreviewContent() {
-    ChurrosScaffoldScreen(currentRoute = HomeRoute, onTabSelected = {}) { padding ->
+    ChurrosScaffoldScreen(currentRoute = ScaffoldRoute.HomeRoute, onTabSelected = {}) { padding ->
         Box(
             modifier = Modifier.fillMaxSize().padding(padding),
             contentAlignment = Alignment.Center,

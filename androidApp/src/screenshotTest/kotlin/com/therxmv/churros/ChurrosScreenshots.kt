@@ -11,6 +11,7 @@ import com.therxmv.churros.core.design.components.CardPreviewContent
 import com.therxmv.churros.core.design.components.DateTimePickerPreviewContent
 import com.therxmv.churros.core.design.components.FilterChipPreviewContent
 import com.therxmv.churros.core.design.components.FullScreenPreviewContent
+import com.therxmv.churros.core.design.components.LoadingIndicatorPreviewContent
 import com.therxmv.churros.core.design.components.OnboardingPagerPreviewContent
 import com.therxmv.churros.core.design.components.OtpFieldPreviewContent
 import com.therxmv.churros.core.design.components.ProgressRingPreviewContent
@@ -93,6 +94,12 @@ fun BottomNavBarScreenshot() = BottomNavBarPreviewContent()
 @ChurrosPreview
 @Composable
 fun FullScreenScreenshot() = FullScreenPreviewContent()
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun LoadingIndicatorScreenshot() = LoadingIndicatorPreviewContent()
 
 @PreviewTest
 @PreviewWrapper(ChurrosPreviewWrapper::class)

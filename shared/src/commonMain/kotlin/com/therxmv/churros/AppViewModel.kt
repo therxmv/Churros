@@ -2,9 +2,8 @@ package com.therxmv.churros
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.therxmv.churros.core.navigation.HomeRoute
-import com.therxmv.churros.core.navigation.Onboarding1Route
-import com.therxmv.churros.core.navigation.SignInRoute
+import com.therxmv.churros.core.navigation.FullscreenRoute
+import com.therxmv.churros.core.navigation.ScaffoldRoute
 import com.therxmv.churros.feature.auth.domain.model.AuthState
 import com.therxmv.churros.feature.auth.domain.usecase.ObserveAuthStateUseCase
 import com.therxmv.churros.feature.onboarding.domain.usecase.IsOnboardingSeenUseCase
@@ -38,7 +37,7 @@ class AppViewModel(
         viewModelScope.launch {
             val onboardingSeen = isOnboardingSeen()
             if (!onboardingSeen) {
-                _startDestination.value = Onboarding1Route
+                _startDestination.value = FullscreenRoute.Onboarding1Route
                 return@launch
             }
 
@@ -47,10 +46,10 @@ class AppViewModel(
                 .first { it !is AuthState.Loading }
 
             _startDestination.value = when (authState) {
-                is AuthState.Authenticated -> HomeRoute
-                is AuthState.Unauthenticated -> SignInRoute
+                is AuthState.Authenticated -> ScaffoldRoute.HomeRoute
+                is AuthState.Unauthenticated -> FullscreenRoute.SignInRoute
                 // Loading is filtered out above; satisfy the exhaustive when.
-                AuthState.Loading -> SignInRoute
+                AuthState.Loading -> FullscreenRoute.SignInRoute
             }
         }
     }
