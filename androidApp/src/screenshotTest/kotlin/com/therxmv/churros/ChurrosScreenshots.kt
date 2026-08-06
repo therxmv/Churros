@@ -7,6 +7,7 @@ import com.therxmv.churros.core.design.ChurrosPreview
 import com.therxmv.churros.core.design.ChurrosPreviewWrapper
 import com.therxmv.churros.core.design.ThemePreviewContent
 import com.therxmv.churros.core.design.components.BottomNavBarPreviewContent
+import com.therxmv.churros.core.design.components.ButtonPreviewContent
 import com.therxmv.churros.core.design.components.CardPreviewContent
 import com.therxmv.churros.core.design.components.DateTimePickerPreviewContent
 import com.therxmv.churros.core.design.components.FilterChipPreviewContent
@@ -19,6 +20,9 @@ import com.therxmv.churros.core.design.components.RoleBadgePreviewContent
 import com.therxmv.churros.core.design.components.ScaffoldScreenPreviewContent
 import com.therxmv.churros.core.design.components.ToggleRowPreviewContent
 import com.therxmv.churros.feature.chores.presentation.components.CategoryPickerPreviewContent
+import com.therxmv.churros.feature.onboarding.presentation.OnboardingSlide1PreviewContent
+import com.therxmv.churros.feature.onboarding.presentation.OnboardingSlide2PreviewContent
+import com.therxmv.churros.feature.onboarding.presentation.OnboardingSlide3PreviewContent
 import com.therxmv.churros.feature.chores.presentation.components.PrioritySelectorPreviewContent
 import com.therxmv.churros.feature.chores.presentation.components.RepeatSelectorPreviewContent
 import com.therxmv.churros.feature.family.presentation.components.MemberCardPreviewContent
@@ -75,6 +79,12 @@ fun OtpFieldScreenshot() = OtpFieldPreviewContent()
 @PreviewWrapper(ChurrosPreviewWrapper::class)
 @ChurrosPreview
 @Composable
+fun ButtonScreenshot() = ButtonPreviewContent()
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
 fun OnboardingPagerScreenshot() = OnboardingPagerPreviewContent()
 
 @PreviewTest
@@ -106,6 +116,26 @@ fun LoadingIndicatorScreenshot() = LoadingIndicatorPreviewContent()
 @ChurrosPreview
 @Composable
 fun ScaffoldScreenScreenshot() = ScaffoldScreenPreviewContent()
+
+// ── Feature: Onboarding ───────────────────────────────────────────────────────
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun OnboardingSlide1Screenshot() = OnboardingSlide1PreviewContent()
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun OnboardingSlide2Screenshot() = OnboardingSlide2PreviewContent()
+
+@PreviewTest
+@PreviewWrapper(ChurrosPreviewWrapper::class)
+@ChurrosPreview
+@Composable
+fun OnboardingSlide3Screenshot() = OnboardingSlide3PreviewContent()
 
 // ── Feature: Chores ───────────────────────────────────────────────────────────
 

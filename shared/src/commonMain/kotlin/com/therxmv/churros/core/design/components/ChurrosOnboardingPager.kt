@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -46,15 +47,18 @@ private val DotInactiveWidthDp = 6.dp
  *
  * Each dot widens to [DotActiveWidthDp] when its page is current.
  *
- * @param pages    Ordered list of composable page content lambdas.
- * @param modifier Applied to the outer [Column].
+ * @param pages      Ordered list of composable page content lambdas.
+ * @param modifier   Applied to the outer [Column].
+ * @param pagerState Optional external [PagerState] for hoisted state control — allows callers
+ *   to programmatically scroll (e.g. a "Next" button). Defaults to an internally-managed
+ *   [rememberPagerState] for backward-compatible usage.
  */
 @Composable
 fun ChurrosOnboardingPager(
     pages: List<@Composable () -> Unit>,
     modifier: Modifier = Modifier,
+    pagerState: PagerState = rememberPagerState(pageCount = { pages.size }),
 ) {
-    val pagerState = rememberPagerState(pageCount = { pages.size })
 
     Column(modifier = modifier) {
         HorizontalPager(

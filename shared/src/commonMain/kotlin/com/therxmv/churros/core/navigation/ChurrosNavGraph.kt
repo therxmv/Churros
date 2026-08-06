@@ -12,6 +12,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.therxmv.churros.core.design.components.ChurrosFullScreen
 import com.therxmv.churros.core.design.components.ChurrosScaffoldScreen
+import com.therxmv.churros.feature.onboarding.presentation.OnboardingScreen
 
 /**
  * Root navigation graph for the Churros app.
@@ -111,21 +112,18 @@ fun ChurrosNavGraph(startDestination: NavKey) {
                     }
                 }
 
-                entry<FullscreenRoute.Onboarding1Route> {
+                entry<FullscreenRoute.OnboardingRoute> {
                     ChurrosFullScreen {
-                        Box(Modifier.fillMaxSize()) // TODO: OnboardingScreen (slide 1)
-                    }
-                }
-
-                entry<FullscreenRoute.Onboarding2Route> {
-                    ChurrosFullScreen {
-                        Box(Modifier.fillMaxSize()) // TODO: OnboardingScreen (slide 2)
-                    }
-                }
-
-                entry<FullscreenRoute.Onboarding3Route> {
-                    ChurrosFullScreen {
-                        Box(Modifier.fillMaxSize()) // TODO: OnboardingScreen (slide 3)
+                        OnboardingScreen(
+                            onNavigateToSignIn = {
+                                backStack.clear()
+                                backStack.add(FullscreenRoute.SignInRoute)
+                            },
+                            onNavigateToSignUp = {
+                                backStack.clear()
+                                backStack.add(FullscreenRoute.SignUpRoute)
+                            },
+                        )
                     }
                 }
 

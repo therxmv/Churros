@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  * App-level ViewModel responsible for determining the initial navigation destination.
  *
  * Decision tree (runs once on startup):
- * 1. Onboarding not seen → [Onboarding1Route] (DataStore flag = false)
+ * 1. Onboarding not seen → [OnboardingRoute] (DataStore flag = false)
  * 2. Onboarding seen + session active → [HomeRoute]
  * 3. Onboarding seen + no session → [SignInRoute]
  *
@@ -37,7 +37,7 @@ class AppViewModel(
         viewModelScope.launch {
             val onboardingSeen = isOnboardingSeen()
             if (!onboardingSeen) {
-                _startDestination.value = FullscreenRoute.Onboarding1Route
+                _startDestination.value = FullscreenRoute.OnboardingRoute
                 return@launch
             }
 

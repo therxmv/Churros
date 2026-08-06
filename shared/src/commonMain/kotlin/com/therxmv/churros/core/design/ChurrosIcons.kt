@@ -1,6 +1,7 @@
 package com.therxmv.churros.core.design
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -10,4 +11,5 @@ object ChurrosIcons {
     val Home: ImageVector = Icons.Default.Home
     val Check: ImageVector = Icons.Default.Check
     val Person: ImageVector = Icons.Default.Person
+    val ArrowForward: ImageVector = Icons.AutoMirrored.Filled.ArrowForward
 }
