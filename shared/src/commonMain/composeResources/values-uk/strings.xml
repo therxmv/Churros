@@ -69,7 +69,7 @@
 
     <!-- Onboarding CTAs -->
     <string name="onboarding_cta_get_started">Почати</string>
-    <string name="onboarding_cta_next">Далі</string>
+    <string name="onboarding_cta_next">Далі →</string>
     <string name="onboarding_cta_skip">Пропустити</string>
 
     <!-- Family screen -->

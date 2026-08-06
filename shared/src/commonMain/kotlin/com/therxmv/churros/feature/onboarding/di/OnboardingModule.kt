@@ -4,6 +4,8 @@ import com.therxmv.churros.feature.onboarding.data.repository.DataStoreOnboardin
 import com.therxmv.churros.feature.onboarding.domain.repository.OnboardingRepository
 import com.therxmv.churros.feature.onboarding.domain.usecase.IsOnboardingSeenUseCase
 import com.therxmv.churros.feature.onboarding.domain.usecase.MarkOnboardingSeenUseCase
+import com.therxmv.churros.feature.onboarding.presentation.OnboardingViewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val onboardingModule = module {
@@ -13,4 +15,6 @@ val onboardingModule = module {
 
     factory { IsOnboardingSeenUseCase(repository = get()) }
     factory { MarkOnboardingSeenUseCase(repository = get()) }
+
+    viewModel { OnboardingViewModel(markOnboardingSeen = get()) }
 }

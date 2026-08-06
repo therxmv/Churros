@@ -173,7 +173,7 @@
 
     <!-- Onboarding CTAs -->
     <string name="onboarding_cta_get_started">Get Started</string>
-    <string name="onboarding_cta_next">Next</string>
+    <string name="onboarding_cta_next">Next →</string>
     <string name="onboarding_cta_skip">Skip</string>
 
     <!-- Family screen -->

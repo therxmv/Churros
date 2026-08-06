@@ -1,0 +1,55 @@
+package com.therxmv.churros.feature.onboarding.presentation
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.therxmv.churros.feature.onboarding.domain.usecase.MarkOnboardingSeenUseCase
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
+
+/**
+ * ViewModel for the onboarding carousel screen.
+ *
+ * Responsibilities:
+ * - Persists the first-launch flag via [MarkOnboardingSeenUseCase] before navigating away.
+ * - Translates [OnboardingUiEvent]s into [OnboardingUiEffect]s so the screen can trigger
+ *   navigation without holding a reference to the back-stack.
+ *
+ * Pager page state lives in Compose ([androidx.compose.foundation.pager.PagerState]); this
+ * ViewModel does not track the current slide index.
+ */
+class OnboardingViewModel(
+    private val markOnboardingSeen: MarkOnboardingSeenUseCase,
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(OnboardingUiState())
+    val uiState: StateFlow<OnboardingUiState> = _uiState.asStateFlow()
+
+    private val _effects = Channel<OnboardingUiEffect>(Channel.BUFFERED)
+    val effects: Flow<OnboardingUiEffect> = _effects.receiveAsFlow()
+
+    fun onEvent(event: OnboardingUiEvent) {
+        when (event) {
+            OnboardingUiEvent.SkipClicked,
+            OnboardingUiEvent.NavigateToSignInClicked -> finishOnboarding(navigateToSignUp = false)
+            OnboardingUiEvent.NavigateToSignUpClicked -> finishOnboarding(navigateToSignUp = true)
+        }
+    }
+
+    private fun finishOnboarding(navigateToSignUp: Boolean) {
+        _uiState.value = _uiState.value.copy(isMarkingAsSeen = true)
+        viewModelScope.launch {
+            markOnboardingSeen()
+            val effect = if (navigateToSignUp) {
+                OnboardingUiEffect.NavigateToSignUp
+            } else {
+                OnboardingUiEffect.NavigateToSignIn
+            }
+            _effects.send(effect)
+        }
+    }
+}
