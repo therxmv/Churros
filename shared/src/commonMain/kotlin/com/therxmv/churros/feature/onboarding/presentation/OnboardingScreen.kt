@@ -34,6 +34,7 @@ import churros.shared.generated.resources.onboarding_slide1_body
 import churros.shared.generated.resources.onboarding_slide1_title
 import churros.shared.generated.resources.onboarding_slide2_body
 import churros.shared.generated.resources.onboarding_slide2_title
+import churros.shared.generated.resources.onboarding_slide3_body
 import churros.shared.generated.resources.onboarding_slide3_title
 import com.therxmv.churros.core.design.ChurrosIcons
 import com.therxmv.churros.core.design.ChurrosPreview
@@ -105,6 +106,7 @@ fun OnboardingScreen(
         {
             OnboardingSlideContent(
                 title = stringResource(Res.string.onboarding_slide3_title),
+                body = stringResource(Res.string.onboarding_slide3_body),
             )
         },
     )
@@ -188,8 +190,8 @@ fun OnboardingScreen(
 @Composable
 private fun OnboardingSlideContent(
     title: String,
+    body: String,
     modifier: Modifier = Modifier,
-    body: String? = null,
 ) {
     Column(
         modifier = modifier
@@ -220,17 +222,15 @@ private fun OnboardingSlideContent(
             textAlign = TextAlign.Center,
         )
 
-        if (body != null) {
-            Spacer(modifier = Modifier.height(ChurrosSpacing.S))
+        Spacer(modifier = Modifier.height(ChurrosSpacing.S))
 
-            Text(
-                text = body,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = ChurrosSpacing.M),
-            )
-        }
+        Text(
+            text = body,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(bottom = ChurrosSpacing.M),
+        )
     }
 }
 
@@ -290,6 +290,7 @@ private fun OnboardingScreenPreviewLayout(
         {
             OnboardingSlideContent(
                 title = stringResource(Res.string.onboarding_slide3_title),
+                body = stringResource(Res.string.onboarding_slide3_body),
             )
         },
     )

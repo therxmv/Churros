@@ -169,6 +169,7 @@
     <string name="onboarding_slide2_title">Share chores, not the stress</string>
     <string name="onboarding_slide2_body">Assign tasks, track progress, and celebrate wins together.</string>
     <string name="onboarding_slide3_title">Everything your home needs</string>
+    <string name="onboarding_slide3_body">From chores to shopping, keep your whole household in sync.</string>
 
     <!-- Onboarding CTAs -->
     <string name="onboarding_cta_get_started">Get Started</string>

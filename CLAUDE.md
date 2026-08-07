@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Churros** is an Android-first household management app for families, couples, and roommates. Tagline: "Like chores, but sweeter."
 
-**Current Phase:** Design system tokens implemented (`core/design/`). All features are clean scaffolds awaiting implementation.
+**Current Phase:** Navigation graph wired (Phase 3 complete). Design system + 13 components implemented. All feature data/domain layers implemented. Presentation layers (screens/ViewModels) are next — feature components exist for Chores, Family, Notifications.
 
 **Key Documentation:**
 - `docs/churros_tech_stack.md` — Full architecture, technology decisions, development workflow
@@ -93,7 +93,7 @@ Re-index after large changes: `mcp__codebase-memory-mcp__index_repository` with 
 
 > **Screenshot tests are golden truth for the UI.** Every `@ChurrosPreview` composable has a committed golden PNG under `androidApp/src/screenshotTestDebug/reference/`. If you intentionally change UI, run `updateDebugScreenshotTest` to update the goldens and commit them alongside the code change. Never delete goldens without regenerating them.
 >
-> **Note:** `androidApp/src/screenshotTest/ChurrosScreenshots.kt` currently references components that are not yet implemented. Before running screenshot tests, ensure all referenced composables exist or update the file to match what is implemented.
+> **Note:** When adding a new `ChurrosXxx` component, also register it in `androidApp/src/screenshotTest/ChurrosScreenshots.kt` with a `@PreviewTest` entry and run `updateDebugScreenshotTest` to commit the golden.
 
 iOS: open `iosApp/iosApp.xcodeproj` in Xcode and run from there.
 
